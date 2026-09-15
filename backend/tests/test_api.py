@@ -182,3 +182,12 @@ def test_openapi_documents_the_analyze_contract(client):
     assert "/analyze" in schema["paths"]
     assert "AnalyzeResponse" in schema["components"]["schemas"]
     assert "ErrorResponse" in schema["components"]["schemas"]
+
+
+def test_placeholder_llm_key_counts_as_unconfigured():
+    """A fresh .env.example checkout must not attempt a doomed LLM call."""
+    from app.config import Settings
+
+    assert Settings(llm_api_key="").llm_enabled is False
+    assert Settings(llm_api_key="sk-your-key-here").llm_enabled is False
+    assert Settings(llm_api_key="sk-proj-realkeymaterial123").llm_enabled is True

@@ -36,7 +36,13 @@ class Settings(BaseSettings):
 
     @property
     def llm_enabled(self) -> bool:
-        return bool(self.llm_api_key)
+        """False for an empty key or an un-edited placeholder from .env.example.
+
+        Without this, a fresh checkout would spend a doomed round-trip on every
+        request before falling back to the deterministic planner.
+        """
+        key = self.llm_api_key.strip()
+        return bool(key) and "your-key" not in key.lower() and key != "sk-..."
 
 
 @lru_cache
