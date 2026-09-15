@@ -314,8 +314,15 @@ _NUMERIC_ACCESSORS: dict[NumericField, Callable[[Trial], Optional[float]]] = {
 }
 
 
+# A scatter with more points than this is unreadable and makes responses huge.
+SCATTER_POINT_LIMIT = 500
+
+
 def build_scatter(
-    trials: Iterable[Trial], x_field: NumericField, y_field: NumericField, limit: int = 800
+    trials: Iterable[Trial],
+    x_field: NumericField,
+    y_field: NumericField,
+    limit: int = SCATTER_POINT_LIMIT,
 ) -> list[Point]:
     """Keep only trials where BOTH numeric fields are present. No imputation."""
     get_x, get_y = _NUMERIC_ACCESSORS[x_field], _NUMERIC_ACCESSORS[y_field]

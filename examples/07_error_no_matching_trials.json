@@ -1,0 +1,23 @@
+{
+  "request": {
+    "query": "How many trials exist for zzqqxx-nonexistent-compound?"
+  },
+  "http_status": 404,
+  "response": {
+    "error": {
+      "code": "NO_MATCHING_TRIALS",
+      "message": "No ClinicalTrials.gov studies matched the supplied query and filters.",
+      "details": {
+        "search_terms": [
+          "zzqqxx-nonexistent-compound"
+        ],
+        "filters": {
+          "statuses": [],
+          "phases": []
+        },
+        "studies_retrieved_before_filters": 0
+      },
+      "request_id": "444ed1ca1836"
+    }
+  }
+}

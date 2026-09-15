@@ -1,0 +1,799 @@
+{
+  "request": {
+    "query": "Compare trial counts by phase for Ozempic vs Wegovy"
+  },
+  "http_status": 200,
+  "response": {
+    "visualization": {
+      "type": "grouped_bar_chart",
+      "title": "Ozempic vs Wegovy Trials by Phase (Number of Trials)",
+      "description": "Each series is an independent ClinicalTrials.gov search; a study mentioning both terms is counted in both series.",
+      "encoding": {
+        "x": {
+          "field": "phase",
+          "type": "nominal",
+          "title": "Phase"
+        },
+        "y": {
+          "field": "trial_count",
+          "type": "quantitative",
+          "title": "Number of Trials"
+        },
+        "series": {
+          "field": "series",
+          "type": "nominal",
+          "title": "Series"
+        },
+        "color": null,
+        "node_id": null,
+        "node_label": null,
+        "node_group": null,
+        "edge_source": null,
+        "edge_target": null,
+        "edge_weight": null
+      },
+      "data": [
+        {
+          "phase": "Early Phase 1",
+          "trial_count": 2,
+          "series": "Ozempic",
+          "citations": [
+            {
+              "nct_id": "NCT05249881",
+              "field": "protocolSection.designModule.phases",
+              "value": "Early Phase 1",
+              "excerpt": "\"Efficacy of Once Weekly GLP 1 Analogue: Semaglutide. A Multicenter Experience From Pakistan.\"",
+              "url": "https://clinicaltrials.gov/study/NCT05249881"
+            },
+            {
+              "nct_id": "NCT06751589",
+              "field": "protocolSection.designModule.phases",
+              "value": "Early Phase 1",
+              "excerpt": "A Study of a Weight Loss Intervention in People With Endometrial Cancer",
+              "url": "https://clinicaltrials.gov/study/NCT06751589"
+            }
+          ],
+          "supporting_trial_count": 2,
+          "supporting_nct_ids": [
+            "NCT05249881",
+            "NCT06751589"
+          ]
+        },
+        {
+          "phase": "Phase 1",
+          "trial_count": 6,
+          "series": "Ozempic",
+          "citations": [
+            {
+              "nct_id": "NCT03789578",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 1",
+              "excerpt": "A Research Study to Look at How Insulin 287 and Semaglutide Work in the Body of People With Type 2 Diabetes When Taken Alone or Together",
+              "url": "https://clinicaltrials.gov/study/NCT03789578"
+            },
+            {
+              "nct_id": "NCT05071898",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 1",
+              "excerpt": "Pharmacogenetics of Response to GLP1R Agonists",
+              "url": "https://clinicaltrials.gov/study/NCT05071898"
+            },
+            {
+              "nct_id": "NCT05670379",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 1",
+              "excerpt": "Assessment of Safety, Tolerability and Drug Levels of Exenatide Implant",
+              "url": "https://clinicaltrials.gov/study/NCT05670379"
+            },
+            {
+              "nct_id": "NCT05671653",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 1",
+              "excerpt": "A Study to Evaluate the Effect of the Experimental GLP-1 Drug PF-07081532 on Blood Levels of Common Birth Control Pills, and Drugs Omeprazole and Midazolam, and Effect of GLP-1 Drug Semaglutide on Mid",
+              "url": "https://clinicaltrials.gov/study/NCT05671653"
+            },
+            {
+              "nct_id": "NCT06497049",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 1",
+              "excerpt": "Open Randomized Study of Comparative Pharmacokinetics and Biosimilarity of GP40221 (GEROPHARM LLC, Russia) and Ozempic®.",
+              "url": "https://clinicaltrials.gov/study/NCT06497049"
+            }
+          ],
+          "supporting_trial_count": 6,
+          "supporting_nct_ids": [
+            "NCT03789578",
+            "NCT05071898",
+            "NCT05670379",
+            "NCT05671653",
+            "NCT06497049",
+            "NCT06634927"
+          ]
+        },
+        {
+          "phase": "Phase 2",
+          "trial_count": 26,
+          "series": "Ozempic",
+          "citations": [
+            {
+              "nct_id": "NCT04019197",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 2",
+              "excerpt": "Effects of Semaglutide in HIV-Associated Lipohypertrophy",
+              "url": "https://clinicaltrials.gov/study/NCT04019197"
+            },
+            {
+              "nct_id": "NCT04451837",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 2",
+              "excerpt": "Semaglutide and Dapagliflozin in Diabetic Patients With Different Pathophysiology",
+              "url": "https://clinicaltrials.gov/study/NCT04451837"
+            },
+            {
+              "nct_id": "NCT04515849",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 2",
+              "excerpt": "A Study of Cotadutide in Participants Who Have Chronic Kidney Disease With Type 2 Diabetes Mellitus",
+              "url": "https://clinicaltrials.gov/study/NCT04515849"
+            },
+            {
+              "nct_id": "NCT04615871",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 2",
+              "excerpt": "Semaglutide to Reduce Myocardial Injury in PATIents With COVID-19",
+              "url": "https://clinicaltrials.gov/study/NCT04615871"
+            },
+            {
+              "nct_id": "NCT04702516",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 2",
+              "excerpt": "The Effect of Semaglutide on Bone Turnover in Patients With Increased Risk of Bone Fracture",
+              "url": "https://clinicaltrials.gov/study/NCT04702516"
+            }
+          ],
+          "supporting_trial_count": 26,
+          "supporting_nct_ids": [
+            "NCT04019197",
+            "NCT04451837",
+            "NCT04515849",
+            "NCT04615871",
+            "NCT04702516",
+            "NCT04944992",
+            "NCT05302596",
+            "NCT05356104",
+            "NCT05616013",
+            "NCT05630586",
+            "NCT05746039",
+            "NCT05891587",
+            "NCT05938712",
+            "NCT06005012",
+            "NCT06449625",
+            "NCT06548490",
+            "NCT06639464",
+            "NCT06691243",
+            "NCT07163624",
+            "NCT07179120",
+            "NCT07202247",
+            "NCT07411378",
+            "NCT07502508",
+            "NCT07509112",
+            "NCT07511543",
+            "NCT07614412"
+          ]
+        },
+        {
+          "phase": "Phase 3",
+          "trial_count": 20,
+          "series": "Ozempic",
+          "citations": [
+            {
+              "nct_id": "NCT03899402",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 3",
+              "excerpt": "Triple Therapy in T1DM",
+              "url": "https://clinicaltrials.gov/study/NCT03899402"
+            },
+            {
+              "nct_id": "NCT04447859",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 3",
+              "excerpt": "16-week Flexible vs. 8-week Semaglutide Titration",
+              "url": "https://clinicaltrials.gov/study/NCT04447859"
+            },
+            {
+              "nct_id": "NCT05205928",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 3",
+              "excerpt": "Weekly Subcutaneous Semaglutide as Adjunct to Closed-loop Therapy in Type 1 Diabetes Care",
+              "url": "https://clinicaltrials.gov/study/NCT05205928"
+            },
+            {
+              "nct_id": "NCT05305794",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 3",
+              "excerpt": "Effect of Weekly GLP1 Agonist Treatment in \"Double Diabetes\"",
+              "url": "https://clinicaltrials.gov/study/NCT05305794"
+            },
+            {
+              "nct_id": "NCT05569772",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 3",
+              "excerpt": "Semaglutide for the Treatment of Glucose Intolerance in Women With Prior Gestational Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT05569772"
+            }
+          ],
+          "supporting_trial_count": 20,
+          "supporting_nct_ids": [
+            "NCT03899402",
+            "NCT04447859",
+            "NCT05205928",
+            "NCT05305794",
+            "NCT05569772",
+            "NCT05586802",
+            "NCT05816057",
+            "NCT05819138",
+            "NCT05819853",
+            "NCT05950516",
+            "NCT06161844",
+            "NCT06339086",
+            "NCT06361823",
+            "NCT06387199",
+            "NCT06739044",
+            "NCT06894784",
+            "NCT07021937",
+            "NCT07046273",
+            "NCT07092618",
+            "NCT07581145"
+          ]
+        },
+        {
+          "phase": "Phase 4",
+          "trial_count": 31,
+          "series": "Ozempic",
+          "citations": [
+            {
+              "nct_id": "NCT03292315",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 4",
+              "excerpt": "Once Weekly GLP-1 in Persons With Spinal Cord Injury",
+              "url": "https://clinicaltrials.gov/study/NCT03292315"
+            },
+            {
+              "nct_id": "NCT03596450",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 4",
+              "excerpt": "Long Term Comparative Effectiveness of Once Weekly Semaglutide Versus Standard of Care in a Real World Adult US Population With Type 2 Diabetes - a Randomized Pragmatic Trial",
+              "url": "https://clinicaltrials.gov/study/NCT03596450"
+            },
+            {
+              "nct_id": "NCT03724981",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 4",
+              "excerpt": "A Study Comparing the Dulaglutide Pen and the Semaglutide Pen",
+              "url": "https://clinicaltrials.gov/study/NCT03724981"
+            },
+            {
+              "nct_id": "NCT04263415",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 4",
+              "excerpt": "The Effects of Semaglutide on Taste, Tongue Tissue Transcriptome, Gastric Emptying and Central Neural Response in Women With PCOS and Obesity",
+              "url": "https://clinicaltrials.gov/study/NCT04263415"
+            },
+            {
+              "nct_id": "NCT04538352",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 4",
+              "excerpt": "Transition From Basal/Bolus to Once-weekly Subcutaneous Semaglutide and Basal Insulin in Patients With T2D",
+              "url": "https://clinicaltrials.gov/study/NCT04538352"
+            }
+          ],
+          "supporting_trial_count": 31,
+          "supporting_nct_ids": [
+            "NCT03292315",
+            "NCT03596450",
+            "NCT03724981",
+            "NCT04263415",
+            "NCT04538352",
+            "NCT04639414",
+            "NCT04854083",
+            "NCT04873050",
+            "NCT04979130",
+            "NCT05119179",
+            "NCT05606471",
+            "NCT05780905",
+            "NCT05813249",
+            "NCT05857085",
+            "NCT05870462",
+            "NCT06027567",
+            "NCT06374875",
+            "NCT06396416",
+            "NCT06475586",
+            "NCT06533527",
+            "NCT06706284",
+            "NCT06803888",
+            "NCT06954090",
+            "NCT06981936",
+            "NCT06986993",
+            "NCT07251556",
+            "NCT07325435",
+            "NCT07592546",
+            "NCT07617155",
+            "NCT07732218",
+            "NCT07769047"
+          ]
+        },
+        {
+          "phase": "Not Applicable",
+          "trial_count": 29,
+          "series": "Ozempic",
+          "citations": [
+            {
+              "nct_id": "NCT04174755",
+              "field": "protocolSection.designModule.phases",
+              "value": "Not Applicable",
+              "excerpt": "Semaglutide's Efficacy in Achieving Weight Loss for Those With HIV",
+              "url": "https://clinicaltrials.gov/study/NCT04174755"
+            },
+            {
+              "nct_id": "NCT04175665",
+              "field": "protocolSection.designModule.phases",
+              "value": "Not Applicable",
+              "excerpt": "Real-world Health Outcomes in Canadian Patients Using Semaglutide",
+              "url": "https://clinicaltrials.gov/study/NCT04175665"
+            },
+            {
+              "nct_id": "NCT04469855",
+              "field": "protocolSection.designModule.phases",
+              "value": "Not Applicable",
+              "excerpt": "Post-Marketing Surveillance (Special Use-results Surveillance) on Long-term Use With Ozempic®",
+              "url": "https://clinicaltrials.gov/study/NCT04469855"
+            },
+            {
+              "nct_id": "NCT04572165",
+              "field": "protocolSection.designModule.phases",
+              "value": "Not Applicable",
+              "excerpt": "Epidemiological Assessment of the Risk for Pancreatic Cancer Associated With the Use of Semaglutide in Patients With Type 2 Diabetes - A Cohort Study Based on Nordic Registry Data",
+              "url": "https://clinicaltrials.gov/study/NCT04572165"
+            },
+            {
+              "nct_id": "NCT04880005",
+              "field": "protocolSection.designModule.phases",
+              "value": "Not Applicable",
+              "excerpt": "Digital Individualized and Collaborative Treatment of T2D in General Practice Based on Decision Aid",
+              "url": "https://clinicaltrials.gov/study/NCT04880005"
+            }
+          ],
+          "supporting_trial_count": 29,
+          "supporting_nct_ids": [
+            "NCT04174755",
+            "NCT04175665",
+            "NCT04469855",
+            "NCT04572165",
+            "NCT04880005",
+            "NCT05078255",
+            "NCT05468632",
+            "NCT05689372",
+            "NCT05984238",
+            "NCT06292065",
+            "NCT06298799",
+            "NCT06351748",
+            "NCT06380426",
+            "NCT06401746",
+            "NCT06478550",
+            "NCT06820047",
+            "NCT06821919",
+            "NCT06967389",
+            "NCT07156331",
+            "NCT07179796",
+            "NCT07195994",
+            "NCT07251803",
+            "NCT07272837",
+            "NCT07280403",
+            "NCT07456774",
+            "NCT07457424",
+            "NCT07701005",
+            "NCT07702461",
+            "NCT07760532"
+          ]
+        },
+        {
+          "phase": "Early Phase 1",
+          "trial_count": 1,
+          "series": "Wegovy",
+          "citations": [
+            {
+              "nct_id": "NCT06751589",
+              "field": "protocolSection.designModule.phases",
+              "value": "Early Phase 1",
+              "excerpt": "A Study of a Weight Loss Intervention in People With Endometrial Cancer",
+              "url": "https://clinicaltrials.gov/study/NCT06751589"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT06751589"
+          ]
+        },
+        {
+          "phase": "Phase 1",
+          "trial_count": 8,
+          "series": "Wegovy",
+          "citations": [
+            {
+              "nct_id": "NCT05071898",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 1",
+              "excerpt": "Pharmacogenetics of Response to GLP1R Agonists",
+              "url": "https://clinicaltrials.gov/study/NCT05071898"
+            },
+            {
+              "nct_id": "NCT05670379",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 1",
+              "excerpt": "Assessment of Safety, Tolerability and Drug Levels of Exenatide Implant",
+              "url": "https://clinicaltrials.gov/study/NCT05670379"
+            },
+            {
+              "nct_id": "NCT05671653",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 1",
+              "excerpt": "A Study to Evaluate the Effect of the Experimental GLP-1 Drug PF-07081532 on Blood Levels of Common Birth Control Pills, and Drugs Omeprazole and Midazolam, and Effect of GLP-1 Drug Semaglutide on Mid",
+              "url": "https://clinicaltrials.gov/study/NCT05671653"
+            },
+            {
+              "nct_id": "NCT06745284",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 1",
+              "excerpt": "A Study to Test Whether Survodutide Improves How the Body Uses Energy and Breaks Down Fat in People With Obesity",
+              "url": "https://clinicaltrials.gov/study/NCT06745284"
+            },
+            {
+              "nct_id": "NCT06830343",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 1",
+              "excerpt": "The Safety, Tolerability, and Pharmacokinetics of of SYH9017 in Chinese Participants With Overweight and Obesity",
+              "url": "https://clinicaltrials.gov/study/NCT06830343"
+            }
+          ],
+          "supporting_trial_count": 8,
+          "supporting_nct_ids": [
+            "NCT05071898",
+            "NCT05670379",
+            "NCT05671653",
+            "NCT06745284",
+            "NCT06830343",
+            "NCT07430059",
+            "NCT07465965",
+            "NCT07673900"
+          ]
+        },
+        {
+          "phase": "Phase 2",
+          "trial_count": 22,
+          "series": "Wegovy",
+          "citations": [
+            {
+              "nct_id": "NCT05067621",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 2",
+              "excerpt": "Semaglutide Effects in Obese Youth With Prediabetes/New Onset Type 2 Diabetes and Metabolic Dysfunction-Associated Steatotic Liver Disease",
+              "url": "https://clinicaltrials.gov/study/NCT05067621"
+            },
+            {
+              "nct_id": "NCT05254314",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 2",
+              "excerpt": "Glucagon-Like Peptide-1 Receptor Agonist in the Treatment of Adult, Obesity-related, Symptomatic Asthma (GATA-3)",
+              "url": "https://clinicaltrials.gov/study/NCT05254314"
+            },
+            {
+              "nct_id": "NCT05424003",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 2",
+              "excerpt": "Randomized Double Blinded Placebo-Controlled w/Semaglutide to Prevent Weight Gain After Liver Transplant",
+              "url": "https://clinicaltrials.gov/study/NCT05424003"
+            },
+            {
+              "nct_id": "NCT05616013",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 2",
+              "excerpt": "Safety and Efficacy of Bimagrumab and Semaglutide in Adults Who Are Overweight or Obese",
+              "url": "https://clinicaltrials.gov/study/NCT05616013"
+            },
+            {
+              "nct_id": "NCT05746039",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 2",
+              "excerpt": "Feasibility of Semaglutide in Advanced Lung Disease",
+              "url": "https://clinicaltrials.gov/study/NCT05746039"
+            }
+          ],
+          "supporting_trial_count": 22,
+          "supporting_nct_ids": [
+            "NCT05067621",
+            "NCT05254314",
+            "NCT05424003",
+            "NCT05616013",
+            "NCT05746039",
+            "NCT05877547",
+            "NCT05891587",
+            "NCT05895643",
+            "NCT06005012",
+            "NCT06282458",
+            "NCT06299098",
+            "NCT06691243",
+            "NCT07202247",
+            "NCT07204249",
+            "NCT07282769",
+            "NCT07411378",
+            "NCT07446998",
+            "NCT07509112",
+            "NCT07523633",
+            "NCT07642635",
+            "NCT07812597",
+            "NCT07820358"
+          ]
+        },
+        {
+          "phase": "Phase 3",
+          "trial_count": 14,
+          "series": "Wegovy",
+          "citations": [
+            {
+              "nct_id": "NCT05819853",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 3",
+              "excerpt": "Role of Semaglutide in Restoring Ovulation in Youth and Adults With Polycystic Ovary Syndrome",
+              "url": "https://clinicaltrials.gov/study/NCT05819853"
+            },
+            {
+              "nct_id": "NCT06584916",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 3",
+              "excerpt": "A Study of Orforglipron for the Maintenance of Body Weight Reduction in Participants Who Have Obesity or Overweight With Weight-Related Comorbidities (ATTAIN-MAINTAIN)",
+              "url": "https://clinicaltrials.gov/study/NCT06584916"
+            },
+            {
+              "nct_id": "NCT06619015",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 3",
+              "excerpt": "Tailoring Obesity Treatment Trial",
+              "url": "https://clinicaltrials.gov/study/NCT06619015"
+            },
+            {
+              "nct_id": "NCT06633783",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 3",
+              "excerpt": "A Phase III Study Comparing the Weight Loss Effects of Semaglutide Injection and Wegovy®",
+              "url": "https://clinicaltrials.gov/study/NCT06633783"
+            },
+            {
+              "nct_id": "NCT06738979",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 3",
+              "excerpt": "A Clinical Study Comparing Semaglutide Injection and Wegovy® for Weight Management in Obese Subjects",
+              "url": "https://clinicaltrials.gov/study/NCT06738979"
+            }
+          ],
+          "supporting_trial_count": 14,
+          "supporting_nct_ids": [
+            "NCT05819853",
+            "NCT06584916",
+            "NCT06619015",
+            "NCT06633783",
+            "NCT06738979",
+            "NCT06909006",
+            "NCT06934655",
+            "NCT07021937",
+            "NCT07036172",
+            "NCT07090343",
+            "NCT07092618",
+            "NCT07150975",
+            "NCT07284979",
+            "NCT07797036"
+          ]
+        },
+        {
+          "phase": "Phase 4",
+          "trial_count": 25,
+          "series": "Wegovy",
+          "citations": [
+            {
+              "nct_id": "NCT05548647",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 4",
+              "excerpt": "Semaglutide Treatment, Appetite, and Eating Behavior: Long-term Effects",
+              "url": "https://clinicaltrials.gov/study/NCT05548647"
+            },
+            {
+              "nct_id": "NCT05579249",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 4",
+              "excerpt": "A Research Study Comparing Wegovy to Other Weight Management Drugs in People Living With Obesity in America",
+              "url": "https://clinicaltrials.gov/study/NCT05579249"
+            },
+            {
+              "nct_id": "NCT05702905",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 4",
+              "excerpt": "Semaglutide Improves Metabolic Abnormalities and Fertility in Obese Infertile Women With Polycystic Ovary Syndrome",
+              "url": "https://clinicaltrials.gov/study/NCT05702905"
+            },
+            {
+              "nct_id": "NCT05812183",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 4",
+              "excerpt": "Gastric Sleeve-Induced Weight Loss on Shortness of Breath in Obesity",
+              "url": "https://clinicaltrials.gov/study/NCT05812183"
+            },
+            {
+              "nct_id": "NCT05813249",
+              "field": "protocolSection.designModule.phases",
+              "value": "Phase 4",
+              "excerpt": "Semaglutide in Nonalcoholic Fatty Liver Disease",
+              "url": "https://clinicaltrials.gov/study/NCT05813249"
+            }
+          ],
+          "supporting_trial_count": 25,
+          "supporting_nct_ids": [
+            "NCT05548647",
+            "NCT05579249",
+            "NCT05702905",
+            "NCT05812183",
+            "NCT05813249",
+            "NCT05870462",
+            "NCT06027567",
+            "NCT06287307",
+            "NCT06374875",
+            "NCT06396416",
+            "NCT06468748",
+            "NCT06533527",
+            "NCT06754163",
+            "NCT06803888",
+            "NCT06852391",
+            "NCT06908694",
+            "NCT07136714",
+            "NCT07213466",
+            "NCT07275697",
+            "NCT07462663",
+            "NCT07554417",
+            "NCT07592546",
+            "NCT07617155",
+            "NCT07728383",
+            "NCT07769047"
+          ]
+        },
+        {
+          "phase": "Not Applicable",
+          "trial_count": 36,
+          "series": "Wegovy",
+          "citations": [
+            {
+              "nct_id": "NCT05503927",
+              "field": "protocolSection.designModule.phases",
+              "value": "Not Applicable",
+              "excerpt": "A Study to Evaluate the Safety of Exposure to Wegovy During Pregnancy",
+              "url": "https://clinicaltrials.gov/study/NCT05503927"
+            },
+            {
+              "nct_id": "NCT05756764",
+              "field": "protocolSection.designModule.phases",
+              "value": "Not Applicable",
+              "excerpt": "Anti-obesity Pharmacotherapy and Inflammation",
+              "url": "https://clinicaltrials.gov/study/NCT05756764"
+            },
+            {
+              "nct_id": "NCT05872022",
+              "field": "protocolSection.designModule.phases",
+              "value": "Not Applicable",
+              "excerpt": "A Study to Evaluate Safety of Exposure to Wegovy During Pregnancy",
+              "url": "https://clinicaltrials.gov/study/NCT05872022"
+            },
+            {
+              "nct_id": "NCT05897398",
+              "field": "protocolSection.designModule.phases",
+              "value": "Not Applicable",
+              "excerpt": "SEMASEARCH, Retrospective/Prospective Cohort Nested at ATUc/AP2 WEGOVY®",
+              "url": "https://clinicaltrials.gov/study/NCT05897398"
+            },
+            {
+              "nct_id": "NCT06234111",
+              "field": "protocolSection.designModule.phases",
+              "value": "Not Applicable",
+              "excerpt": "Semaglutide and Physical Activity for Obesity and Multimorbidity",
+              "url": "https://clinicaltrials.gov/study/NCT06234111"
+            }
+          ],
+          "supporting_trial_count": 36,
+          "supporting_nct_ids": [
+            "NCT05503927",
+            "NCT05756764",
+            "NCT05872022",
+            "NCT05897398",
+            "NCT06234111",
+            "NCT06283667",
+            "NCT06292065",
+            "NCT06380426",
+            "NCT06426446",
+            "NCT06431308",
+            "NCT06497595",
+            "NCT06715514",
+            "NCT06764056",
+            "NCT06950684",
+            "NCT06967389",
+            "NCT07018544",
+            "NCT07041983",
+            "NCT07055607",
+            "NCT07156331",
+            "NCT07194317",
+            "NCT07216651",
+            "NCT07251803",
+            "NCT07272837",
+            "NCT07280221",
+            "NCT07280403",
+            "NCT07368855",
+            "NCT07423481",
+            "NCT07621640",
+            "NCT07640139",
+            "NCT07649759",
+            "NCT07701005",
+            "NCT07702461",
+            "NCT07711548",
+            "NCT07732426",
+            "NCT07779343",
+            "NCT07789106"
+          ]
+        }
+      ],
+      "nodes": null,
+      "edges": null,
+      "metadata": {
+        "source": "ClinicalTrials.gov",
+        "source_api": "https://clinicaltrials.gov/api/v2/studies",
+        "metric": "trial_count",
+        "unit": "trials",
+        "sort": {
+          "field": "phase",
+          "direction": "asc"
+        },
+        "time_granularity": null,
+        "grouping": "phase",
+        "filters_applied": {},
+        "search_terms": [
+          "Ozempic",
+          "Wegovy"
+        ],
+        "studies_retrieved": 220,
+        "studies_matched": 220,
+        "truncated": false,
+        "assumptions": [
+          "Both Ozempic and Wegovy are identified as distinct interventions for comparison",
+          "Phases in trials are available and standardized for grouping"
+        ],
+        "notes": [
+          "Studies matched per series: Ozempic=114, Wegovy=106"
+        ]
+      }
+    },
+    "meta": {
+      "request_id": "ea6146bd9aff",
+      "query": "Compare trial counts by phase for Ozempic vs Wegovy",
+      "source": "clinicaltrials.gov",
+      "source_api": "https://clinicaltrials.gov/api/v2",
+      "elapsed_ms": 1744,
+      "plan": {
+        "intent": "comparison",
+        "search_terms": [
+          "Ozempic",
+          "Wegovy"
+        ],
+        "dimension": "phase",
+        "metric": "trial_count",
+        "relationship": null,
+        "filters": {},
+        "interpretation": "This query compares the count of clinical trials by phase for Ozempic versus Wegovy.",
+        "planner_mode": "llm"
+      }
+    }
+  }
+}

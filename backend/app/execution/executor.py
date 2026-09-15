@@ -272,10 +272,16 @@ class Executor:
                     "studies_matched": len(trials),
                 },
             )
-        metadata.notes.append(
-            f"{len(points)} of {len(trials)} matching studies report both fields; studies "
-            "missing either value are omitted rather than imputed."
-        )
+        if len(points) >= agg.SCATTER_POINT_LIMIT:
+            metadata.notes.append(
+                f"Plotted the first {agg.SCATTER_POINT_LIMIT} of {len(trials)} matching studies "
+                "that report both fields; the scatter is a sample, not the full set."
+            )
+        else:
+            metadata.notes.append(
+                f"{len(points)} of {len(trials)} matching studies report both fields; studies "
+                "missing either value are omitted rather than imputed."
+            )
         return builders.build_scatter(
             points, plan, tracer, metadata,
             title=builders.title_for(plan),

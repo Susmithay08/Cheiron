@@ -1,0 +1,1855 @@
+{
+  "request": {
+    "query": "Show a network of sponsors and drugs for diabetes trials"
+  },
+  "http_status": 200,
+  "response": {
+    "visualization": {
+      "type": "network_graph",
+      "title": "Sponsor ↔ Drug Network for Diabetes Trials",
+      "description": "Nodes are entities; an edge means the pair appears together in a study.",
+      "encoding": {
+        "x": null,
+        "y": null,
+        "series": null,
+        "color": null,
+        "node_id": "id",
+        "node_label": "label",
+        "node_group": "group",
+        "edge_source": "source",
+        "edge_target": "target",
+        "edge_weight": "weight"
+      },
+      "data": [],
+      "nodes": [
+        {
+          "id": "Metformin",
+          "label": "Metformin",
+          "group": "drug",
+          "degree": 11,
+          "trial_count": 90
+        },
+        {
+          "id": "Eli Lilly and Company",
+          "label": "Eli Lilly and Company",
+          "group": "sponsor",
+          "degree": 9,
+          "trial_count": 72
+        },
+        {
+          "id": "AstraZeneca",
+          "label": "AstraZeneca",
+          "group": "sponsor",
+          "degree": 6,
+          "trial_count": 49
+        },
+        {
+          "id": "Novo Nordisk A/S",
+          "label": "Novo Nordisk A/S",
+          "group": "sponsor",
+          "degree": 6,
+          "trial_count": 108
+        },
+        {
+          "id": "Pioglitazone",
+          "label": "Pioglitazone",
+          "group": "drug",
+          "degree": 6,
+          "trial_count": 27
+        },
+        {
+          "id": "Sitagliptin",
+          "label": "Sitagliptin",
+          "group": "drug",
+          "degree": 6,
+          "trial_count": 26
+        },
+        {
+          "id": "Brigham and Women's Hospital",
+          "label": "Brigham and Women's Hospital",
+          "group": "sponsor",
+          "degree": 5,
+          "trial_count": 10
+        },
+        {
+          "id": "Empagliflozin",
+          "label": "Empagliflozin",
+          "group": "drug",
+          "degree": 5,
+          "trial_count": 19
+        },
+        {
+          "id": "Merck Sharp & Dohme LLC",
+          "label": "Merck Sharp & Dohme LLC",
+          "group": "sponsor",
+          "degree": 5,
+          "trial_count": 25
+        },
+        {
+          "id": "Sanofi",
+          "label": "Sanofi",
+          "group": "sponsor",
+          "degree": 5,
+          "trial_count": 49
+        },
+        {
+          "id": "GlaxoSmithKline",
+          "label": "GlaxoSmithKline",
+          "group": "sponsor",
+          "degree": 4,
+          "trial_count": 42
+        },
+        {
+          "id": "Semaglutide",
+          "label": "Semaglutide",
+          "group": "drug",
+          "degree": 4,
+          "trial_count": 26
+        },
+        {
+          "id": "Boehringer Ingelheim",
+          "label": "Boehringer Ingelheim",
+          "group": "sponsor",
+          "degree": 3,
+          "trial_count": 30
+        },
+        {
+          "id": "Glimepiride",
+          "label": "Glimepiride",
+          "group": "drug",
+          "degree": 3,
+          "trial_count": 12
+        },
+        {
+          "id": "Insulin Glargine",
+          "label": "Insulin Glargine",
+          "group": "drug",
+          "degree": 3,
+          "trial_count": 15
+        },
+        {
+          "id": "Insulin glargine",
+          "label": "Insulin glargine",
+          "group": "drug",
+          "degree": 3,
+          "trial_count": 12
+        },
+        {
+          "id": "Liraglutide",
+          "label": "Liraglutide",
+          "group": "drug",
+          "degree": 3,
+          "trial_count": 18
+        },
+        {
+          "id": "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK)",
+          "label": "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK)",
+          "group": "sponsor",
+          "degree": 3,
+          "trial_count": 31
+        },
+        {
+          "id": "Tirzepatide",
+          "label": "Tirzepatide",
+          "group": "drug",
+          "degree": 3,
+          "trial_count": 18
+        },
+        {
+          "id": "University of Colorado, Denver",
+          "label": "University of Colorado, Denver",
+          "group": "sponsor",
+          "degree": 3,
+          "trial_count": 14
+        },
+        {
+          "id": "insulin detemir",
+          "label": "insulin detemir",
+          "group": "drug",
+          "degree": 3,
+          "trial_count": 16
+        },
+        {
+          "id": "Insulin",
+          "label": "Insulin",
+          "group": "drug",
+          "degree": 2,
+          "trial_count": 19
+        },
+        {
+          "id": "Insulin Lispro",
+          "label": "Insulin Lispro",
+          "group": "drug",
+          "degree": 2,
+          "trial_count": 14
+        },
+        {
+          "id": "Mayo Clinic",
+          "label": "Mayo Clinic",
+          "group": "sponsor",
+          "degree": 2,
+          "trial_count": 14
+        },
+        {
+          "id": "Novartis Pharmaceuticals",
+          "label": "Novartis Pharmaceuticals",
+          "group": "sponsor",
+          "degree": 2,
+          "trial_count": 18
+        },
+        {
+          "id": "Takeda",
+          "label": "Takeda",
+          "group": "sponsor",
+          "degree": 2,
+          "trial_count": 19
+        },
+        {
+          "id": "Dapagliflozin",
+          "label": "Dapagliflozin",
+          "group": "drug",
+          "degree": 1,
+          "trial_count": 24
+        },
+        {
+          "id": "Pfizer",
+          "label": "Pfizer",
+          "group": "sponsor",
+          "degree": 1,
+          "trial_count": 22
+        },
+        {
+          "id": "insulin aspart",
+          "label": "insulin aspart",
+          "group": "drug",
+          "degree": 1,
+          "trial_count": 19
+        }
+      ],
+      "edges": [
+        {
+          "source": "Novo Nordisk A/S",
+          "target": "insulin aspart",
+          "weight": 17,
+          "citations": [
+            {
+              "nct_id": "NCT00184613",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ insulin aspart",
+              "excerpt": "Comparison of Insulin Glargine Against Insulin Aspart Infused Under the Skin in Patients With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00184613"
+            },
+            {
+              "nct_id": "NCT00322257",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ insulin aspart",
+              "excerpt": "Safety and Efficacy of Inhaled Insulin in Type 1 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00322257"
+            },
+            {
+              "nct_id": "NCT00365170",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ insulin aspart",
+              "excerpt": "Efficacy and Safety of Insulin Aspart vs. Human Insulin During Pregnancy by Women With Type 1 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00365170"
+            },
+            {
+              "nct_id": "NCT00410033",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ insulin aspart",
+              "excerpt": "Comparison of Antibody Levels in Children and Adolescents After Initiation of Insulin Therapy by Either Insulin Aspart or Soluble Human Insulin",
+              "url": "https://clinicaltrials.gov/study/NCT00410033"
+            },
+            {
+              "nct_id": "NCT00447382",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ insulin aspart",
+              "excerpt": "Safety of Insulin Detemir Produced by a New Process as Measured by Antibody Formation in Subjects With Type 1 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00447382"
+            }
+          ],
+          "supporting_trial_count": 17,
+          "supporting_nct_ids": [
+            "NCT00184613",
+            "NCT00322257",
+            "NCT00365170",
+            "NCT00410033",
+            "NCT00447382",
+            "NCT00604656",
+            "NCT00670722",
+            "NCT00841087",
+            "NCT00869908",
+            "NCT00978627",
+            "NCT01467141",
+            "NCT01487421",
+            "NCT01536028",
+            "NCT01835431",
+            "NCT01868568",
+            "NCT02100475",
+            "NCT02420262"
+          ]
+        },
+        {
+          "source": "Novo Nordisk A/S",
+          "target": "Semaglutide",
+          "weight": 15,
+          "citations": [
+            {
+              "nct_id": "NCT04032197",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ Semaglutide",
+              "excerpt": "A Research Study of How Semaglutide Works in People With Disease Affecting the Heart and/or Blood Vessels and Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT04032197"
+            },
+            {
+              "nct_id": "NCT04067999",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ Semaglutide",
+              "excerpt": "A Research Study Looking at How Semaglutide Works in People With Type 2 Diabetes in Spain, as Part of Local Clinical Practice",
+              "url": "https://clinicaltrials.gov/study/NCT04067999"
+            },
+            {
+              "nct_id": "NCT04187300",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ Semaglutide",
+              "excerpt": "A Research Study Looking at the Comparability (Bioequivalence) of Two Forms of Semaglutide in Two Different Pen-injectors in People With Overweight or Obesity",
+              "url": "https://clinicaltrials.gov/study/NCT04187300"
+            },
+            {
+              "nct_id": "NCT04777409",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ Semaglutide",
+              "excerpt": "A Research Study Investigating Semaglutide in People With Early Alzheimer's Disease (EVOKE Plus)",
+              "url": "https://clinicaltrials.gov/study/NCT04777409"
+            },
+            {
+              "nct_id": "NCT04865770",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ Semaglutide",
+              "excerpt": "A Research Study to Find Out How Semaglutide Works in the Kidneys Compared to Placebo, in People With Type 2 Diabetes and Chronic Kidney Disease (the REMODEL Trial)",
+              "url": "https://clinicaltrials.gov/study/NCT04865770"
+            }
+          ],
+          "supporting_trial_count": 15,
+          "supporting_nct_ids": [
+            "NCT04032197",
+            "NCT04067999",
+            "NCT04187300",
+            "NCT04777409",
+            "NCT04865770",
+            "NCT04916470",
+            "NCT05443191",
+            "NCT05443334",
+            "NCT05444153",
+            "NCT05669755",
+            "NCT05891496",
+            "NCT05996874",
+            "NCT07010432",
+            "NCT07400107",
+            "NCT07668414"
+          ]
+        },
+        {
+          "source": "Novo Nordisk A/S",
+          "target": "insulin detemir",
+          "weight": 14,
+          "citations": [
+            {
+              "nct_id": "NCT00322257",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ insulin detemir",
+              "excerpt": "Safety and Efficacy of Inhaled Insulin in Type 1 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00322257"
+            },
+            {
+              "nct_id": "NCT00447382",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ insulin detemir",
+              "excerpt": "Safety of Insulin Detemir Produced by a New Process as Measured by Antibody Formation in Subjects With Type 1 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00447382"
+            },
+            {
+              "nct_id": "NCT00670722",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ insulin detemir",
+              "excerpt": "Observational Study on Blood Glucose Control in Patients With Diabetes Using Modern Insulin",
+              "url": "https://clinicaltrials.gov/study/NCT00670722"
+            },
+            {
+              "nct_id": "NCT00738153",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ insulin detemir",
+              "excerpt": "An Observational Study on Efficacy and Safety in Subjects Using Levemir® for the Treatment of Insulin Dependent Type 1 or Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00738153"
+            },
+            {
+              "nct_id": "NCT00760448",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ insulin detemir",
+              "excerpt": "Comparison of Insulin Detemir and NPH With Respect to Lowering the Blood Sugar and Symptoms Experienced by Type 1 Diabetics During Hypoglycaemia",
+              "url": "https://clinicaltrials.gov/study/NCT00760448"
+            }
+          ],
+          "supporting_trial_count": 14,
+          "supporting_nct_ids": [
+            "NCT00322257",
+            "NCT00447382",
+            "NCT00670722",
+            "NCT00738153",
+            "NCT00760448",
+            "NCT00789191",
+            "NCT00841087",
+            "NCT00842192",
+            "NCT00869908",
+            "NCT00978627",
+            "NCT01487421",
+            "NCT01542450",
+            "NCT01542476",
+            "NCT01835431"
+          ]
+        },
+        {
+          "source": "AstraZeneca",
+          "target": "Dapagliflozin",
+          "weight": 11,
+          "citations": [
+            {
+              "nct_id": "NCT00538174",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Dapagliflozin",
+              "excerpt": "Phase I Multiple-Ascending Dose (Japan)",
+              "url": "https://clinicaltrials.gov/study/NCT00538174"
+            },
+            {
+              "nct_id": "NCT00562250",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Dapagliflozin",
+              "excerpt": "Pharmacokinetic Drug Interaction Study With Dapagliflozin and Glimepiride in Healthy Subjects",
+              "url": "https://clinicaltrials.gov/study/NCT00562250"
+            },
+            {
+              "nct_id": "NCT00736879",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Dapagliflozin",
+              "excerpt": "Safety and Efficacy of Dapagliflozin as Monotherapy in Subjects With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00736879"
+            },
+            {
+              "nct_id": "NCT00972244",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Dapagliflozin",
+              "excerpt": "Trial to Evaluate the Efficacy and Safety of Dapagliflozin in Japanese Type 2 Diabetes Mellitus Patients",
+              "url": "https://clinicaltrials.gov/study/NCT00972244"
+            },
+            {
+              "nct_id": "NCT00976495",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Dapagliflozin",
+              "excerpt": "Effects of Dapagliflozin on Kidney Function (Glomerular Filtration Rate) in Subjects With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00976495"
+            }
+          ],
+          "supporting_trial_count": 11,
+          "supporting_nct_ids": [
+            "NCT00538174",
+            "NCT00562250",
+            "NCT00736879",
+            "NCT00972244",
+            "NCT00976495",
+            "NCT01095666",
+            "NCT01137474",
+            "NCT01195662",
+            "NCT01294423",
+            "NCT02419612",
+            "NCT02719132"
+          ]
+        },
+        {
+          "source": "Eli Lilly and Company",
+          "target": "Insulin Lispro",
+          "weight": 10,
+          "citations": [
+            {
+              "nct_id": "NCT01481779",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin Lispro",
+              "excerpt": "A Study in Participants With Type 1 Diabetes Mellitus",
+              "url": "https://clinicaltrials.gov/study/NCT01481779"
+            },
+            {
+              "nct_id": "NCT02152384",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin Lispro",
+              "excerpt": "A Study to Compare and Measure the Effects of Insulin Peglispro (LY2605541) and Glargine on Meal Time Insulin Requirements",
+              "url": "https://clinicaltrials.gov/study/NCT02152384"
+            },
+            {
+              "nct_id": "NCT03214380",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin Lispro",
+              "excerpt": "A Study of LY900014 Compared to Insulin Lispro in Participants With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT03214380"
+            },
+            {
+              "nct_id": "NCT03286751",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin Lispro",
+              "excerpt": "A Comparative Study of LY900014 to Insulin Lispro (Humalog) in Healthy Participants",
+              "url": "https://clinicaltrials.gov/study/NCT03286751"
+            },
+            {
+              "nct_id": "NCT03305822",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin Lispro",
+              "excerpt": "A Study of LY900014 in Participants With Type 2 Diabetes Mellitus",
+              "url": "https://clinicaltrials.gov/study/NCT03305822"
+            }
+          ],
+          "supporting_trial_count": 10,
+          "supporting_nct_ids": [
+            "NCT01481779",
+            "NCT02152384",
+            "NCT03214380",
+            "NCT03286751",
+            "NCT03305822",
+            "NCT03407118",
+            "NCT03760640",
+            "NCT03849612",
+            "NCT03890003",
+            "NCT04276207"
+          ]
+        },
+        {
+          "source": "Eli Lilly and Company",
+          "target": "Tirzepatide",
+          "weight": 8,
+          "citations": [
+            {
+              "nct_id": "NCT04407234",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Tirzepatide",
+              "excerpt": "A Study to Measure Stomach Emptying in Overweight Non-diabetic and Diabetic Participants Using Tirzepatide",
+              "url": "https://clinicaltrials.gov/study/NCT04407234"
+            },
+            {
+              "nct_id": "NCT04537923",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Tirzepatide",
+              "excerpt": "A Study of Tirzepatide (LY3298176) Versus Insulin Lispro (U100) in Participants With Type 2 Diabetes Inadequately Controlled on Insulin Glargine (U100) With or Without Metformin",
+              "url": "https://clinicaltrials.gov/study/NCT04537923"
+            },
+            {
+              "nct_id": "NCT04657003",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Tirzepatide",
+              "excerpt": "A Study of Tirzepatide (LY3298176) in Participants With Type 2 Diabetes Who Have Obesity or Are Overweight",
+              "url": "https://clinicaltrials.gov/study/NCT04657003"
+            },
+            {
+              "nct_id": "NCT05691712",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Tirzepatide",
+              "excerpt": "A Study of Tirzepatide (LY3298176) in Chinese Participants With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT05691712"
+            },
+            {
+              "nct_id": "NCT06603571",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Tirzepatide",
+              "excerpt": "A Study to Investigate Weight Management With LY3841136 and Tirzepatide (LY3298176), Alone or in Combination, in Adult Participants With Obesity or Overweight With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT06603571"
+            }
+          ],
+          "supporting_trial_count": 8,
+          "supporting_nct_ids": [
+            "NCT04407234",
+            "NCT04537923",
+            "NCT04657003",
+            "NCT05691712",
+            "NCT06603571",
+            "NCT06643728",
+            "NCT06914895",
+            "NCT07247084"
+          ]
+        },
+        {
+          "source": "Sanofi",
+          "target": "Metformin",
+          "weight": 7,
+          "citations": [
+            {
+              "nct_id": "NCT00751114",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Metformin",
+              "excerpt": "Evaluation of Insulin Glargine Versus Sitagliptin in Insulin-naive Patients",
+              "url": "https://clinicaltrials.gov/study/NCT00751114"
+            },
+            {
+              "nct_id": "NCT00924573",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Metformin",
+              "excerpt": "Comparative Study of HOE490 O (Glimepiride and Metformin) Compared With Placebo on Top of Glimepiride",
+              "url": "https://clinicaltrials.gov/study/NCT00924573"
+            },
+            {
+              "nct_id": "NCT00976937",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Metformin",
+              "excerpt": "24-week Study Comparing Lixisenatide to Sitagliptin as add-on to Metformin in Obese Type 2 Diabetic Patients Younger Than 50 Years",
+              "url": "https://clinicaltrials.gov/study/NCT00976937"
+            },
+            {
+              "nct_id": "NCT01169779",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Metformin",
+              "excerpt": "Efficacy and Safety of Lixisenatide in Patients With Type 2 Diabetes Mellitus Insufficiently Controlled by Metformin",
+              "url": "https://clinicaltrials.gov/study/NCT01169779"
+            },
+            {
+              "nct_id": "NCT01517412",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Metformin",
+              "excerpt": "Comparison of Lixisenatide Injected Prior to the Main Meal of the Day Versus Prior to Breakfast in Type 2 Diabetic Patients on Metformin",
+              "url": "https://clinicaltrials.gov/study/NCT01517412"
+            }
+          ],
+          "supporting_trial_count": 7,
+          "supporting_nct_ids": [
+            "NCT00751114",
+            "NCT00924573",
+            "NCT00976937",
+            "NCT01169779",
+            "NCT01517412",
+            "NCT02752412",
+            "NCT03794336"
+          ]
+        },
+        {
+          "source": "Sanofi",
+          "target": "Insulin glargine",
+          "weight": 6,
+          "citations": [
+            {
+              "nct_id": "NCT00174824",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Insulin glargine",
+              "excerpt": "Comparison of Insulin Glargine and NPH Human Insulin in Progression of Diabetic Retinopathy in Type 2 Diabetic Patients",
+              "url": "https://clinicaltrials.gov/study/NCT00174824"
+            },
+            {
+              "nct_id": "NCT00354939",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Insulin glargine",
+              "excerpt": "Insulin Analogue With Continuous Glucose Monitoring System (CGMS) Measurement",
+              "url": "https://clinicaltrials.gov/study/NCT00354939"
+            },
+            {
+              "nct_id": "NCT00405418",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Insulin glargine",
+              "excerpt": "Lantus Versus Levemir Treat-To-Target",
+              "url": "https://clinicaltrials.gov/study/NCT00405418"
+            },
+            {
+              "nct_id": "NCT00701831",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Insulin glargine",
+              "excerpt": "Assessment of Insulin Glargine in Type 2 Patients for Good Glycemic Control",
+              "url": "https://clinicaltrials.gov/study/NCT00701831"
+            },
+            {
+              "nct_id": "NCT01336751",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Insulin glargine",
+              "excerpt": "Lantus Versus Humalog Mix as add-on Therapy in Type Diabetes Patients Failing Sulfonylurea and Metformin Combination Treatment",
+              "url": "https://clinicaltrials.gov/study/NCT01336751"
+            }
+          ],
+          "supporting_trial_count": 6,
+          "supporting_nct_ids": [
+            "NCT00174824",
+            "NCT00354939",
+            "NCT00405418",
+            "NCT00701831",
+            "NCT01336751",
+            "NCT01476475"
+          ]
+        },
+        {
+          "source": "Eli Lilly and Company",
+          "target": "Insulin Glargine",
+          "weight": 5,
+          "citations": [
+            {
+              "nct_id": "NCT00664534",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin Glargine",
+              "excerpt": "Pre-Mix Insulin Lispro Treatment for Type 2 Diabetes Patients Who Consume a Light Breakfast",
+              "url": "https://clinicaltrials.gov/study/NCT00664534"
+            },
+            {
+              "nct_id": "NCT01175824",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin Glargine",
+              "excerpt": "Comparison of the Efficacy and Safety of Two Insulin Intensification Strategies",
+              "url": "https://clinicaltrials.gov/study/NCT01175824"
+            },
+            {
+              "nct_id": "NCT02072096",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin Glargine",
+              "excerpt": "A Comparison of Two Treatment Strategies in Older Participants With Type 2 Diabetes Mellitus (T2DM)",
+              "url": "https://clinicaltrials.gov/study/NCT02072096"
+            },
+            {
+              "nct_id": "NCT02152384",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin Glargine",
+              "excerpt": "A Study to Compare and Measure the Effects of Insulin Peglispro (LY2605541) and Glargine on Meal Time Insulin Requirements",
+              "url": "https://clinicaltrials.gov/study/NCT02152384"
+            },
+            {
+              "nct_id": "NCT03214380",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin Glargine",
+              "excerpt": "A Study of LY900014 Compared to Insulin Lispro in Participants With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT03214380"
+            }
+          ],
+          "supporting_trial_count": 5,
+          "supporting_nct_ids": [
+            "NCT00664534",
+            "NCT01175824",
+            "NCT02072096",
+            "NCT02152384",
+            "NCT03214380"
+          ]
+        },
+        {
+          "source": "Sanofi",
+          "target": "Insulin Glargine",
+          "weight": 5,
+          "citations": [
+            {
+              "nct_id": "NCT00283049",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Insulin Glargine",
+              "excerpt": "Insulin Glargine Injection Treatment in Place of Thiazolidinedione (TZD), Sulfonylurea, or Metformin in Triple Agent Therapy for Type 2 Diabetes Mellitus (T2DM) Adult Subjects With Unsatisfactory Cont",
+              "url": "https://clinicaltrials.gov/study/NCT00283049"
+            },
+            {
+              "nct_id": "NCT00563225",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Insulin Glargine",
+              "excerpt": "20 Week Bridging Study in Type II DM",
+              "url": "https://clinicaltrials.gov/study/NCT00563225"
+            },
+            {
+              "nct_id": "NCT00565162",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Insulin Glargine",
+              "excerpt": "Insulin Glargine, INITIATE Metabolic and Economic Outcomes of Lantus",
+              "url": "https://clinicaltrials.gov/study/NCT00565162"
+            },
+            {
+              "nct_id": "NCT00751114",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Insulin Glargine",
+              "excerpt": "Evaluation of Insulin Glargine Versus Sitagliptin in Insulin-naive Patients",
+              "url": "https://clinicaltrials.gov/study/NCT00751114"
+            },
+            {
+              "nct_id": "NCT01169818",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Insulin Glargine",
+              "excerpt": "Evaluation of the Effectiveness and Safety of Physician Versus Patient-led of Insulin Glargine Initiation and Titration in Type 2 Diabetes Mellitus",
+              "url": "https://clinicaltrials.gov/study/NCT01169818"
+            }
+          ],
+          "supporting_trial_count": 5,
+          "supporting_nct_ids": [
+            "NCT00283049",
+            "NCT00563225",
+            "NCT00565162",
+            "NCT00751114",
+            "NCT01169818"
+          ]
+        },
+        {
+          "source": "Eli Lilly and Company",
+          "target": "Metformin",
+          "weight": 4,
+          "citations": [
+            {
+              "nct_id": "NCT01126580",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Metformin",
+              "excerpt": "A Study in Participants With Type 2 Diabetes Mellitus (AWARD-3)",
+              "url": "https://clinicaltrials.gov/study/NCT01126580"
+            },
+            {
+              "nct_id": "NCT02072096",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Metformin",
+              "excerpt": "A Comparison of Two Treatment Strategies in Older Participants With Type 2 Diabetes Mellitus (T2DM)",
+              "url": "https://clinicaltrials.gov/study/NCT02072096"
+            },
+            {
+              "nct_id": "NCT02597049",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Metformin",
+              "excerpt": "A Study of Dulaglutide (LY2189265) in Participants With Type 2 Diabetes Mellitus",
+              "url": "https://clinicaltrials.gov/study/NCT02597049"
+            },
+            {
+              "nct_id": "NCT03214380",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Metformin",
+              "excerpt": "A Study of LY900014 Compared to Insulin Lispro in Participants With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT03214380"
+            }
+          ],
+          "supporting_trial_count": 4,
+          "supporting_nct_ids": [
+            "NCT01126580",
+            "NCT02072096",
+            "NCT02597049",
+            "NCT03214380"
+          ]
+        },
+        {
+          "source": "Merck Sharp & Dohme LLC",
+          "target": "Metformin",
+          "weight": 4,
+          "citations": [
+            {
+              "nct_id": "NCT00086515",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Merck Sharp & Dohme LLC ↔ Metformin",
+              "excerpt": "Metformin Add-on Study in Patients With Type 2 Diabetes Mellitus (0431-020)(COMPLETED)",
+              "url": "https://clinicaltrials.gov/study/NCT00086515"
+            },
+            {
+              "nct_id": "NCT01076075",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Merck Sharp & Dohme LLC ↔ Metformin",
+              "excerpt": "A Study to Evaluate the Safety and Efficacy of Sitagliptin 100 mg in Participants With Type 2 Diabetes Mellitus Who Have Inadequate Glycemic Control (MK-0431-229)",
+              "url": "https://clinicaltrials.gov/study/NCT01076075"
+            },
+            {
+              "nct_id": "NCT02738879",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Merck Sharp & Dohme LLC ↔ Metformin",
+              "excerpt": "Randomized Sitagliptin Withdrawal Study (MK-0431-845)",
+              "url": "https://clinicaltrials.gov/study/NCT02738879"
+            },
+            {
+              "nct_id": "NCT04029480",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Merck Sharp & Dohme LLC ↔ Metformin",
+              "excerpt": "Ertugliflozin Type 2 Diabetes Mellitus (T2DM) Pediatric Study (MK-8835/PF-04971729) (MK-8835-059)",
+              "url": "https://clinicaltrials.gov/study/NCT04029480"
+            }
+          ],
+          "supporting_trial_count": 4,
+          "supporting_nct_ids": [
+            "NCT00086515",
+            "NCT01076075",
+            "NCT02738879",
+            "NCT04029480"
+          ]
+        },
+        {
+          "source": "AstraZeneca",
+          "target": "Glimepiride",
+          "weight": 3,
+          "citations": [
+            {
+              "nct_id": "NCT00562250",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Glimepiride",
+              "excerpt": "Pharmacokinetic Drug Interaction Study With Dapagliflozin and Glimepiride in Healthy Subjects",
+              "url": "https://clinicaltrials.gov/study/NCT00562250"
+            },
+            {
+              "nct_id": "NCT00680745",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Glimepiride",
+              "excerpt": "Efficacy and Safety of Dapagliflozin in Combination With Glimepiride (a Sulphonylurea) in Type 2 Diabetes Patients",
+              "url": "https://clinicaltrials.gov/study/NCT00680745"
+            },
+            {
+              "nct_id": "NCT02419612",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Glimepiride",
+              "excerpt": "A 52-week International, Multicenter Trial With a Long -Term Extension to Evaluate Saxagliptin With Dapagliflozin in Combination With Metformin Compared to Glimepiride in Combination With Metformin in",
+              "url": "https://clinicaltrials.gov/study/NCT02419612"
+            }
+          ],
+          "supporting_trial_count": 3,
+          "supporting_nct_ids": [
+            "NCT00562250",
+            "NCT00680745",
+            "NCT02419612"
+          ]
+        },
+        {
+          "source": "AstraZeneca",
+          "target": "Metformin",
+          "weight": 3,
+          "citations": [
+            {
+              "nct_id": "NCT01006590",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Metformin",
+              "excerpt": "Efficacy and Tolerability of Saxagliptin add-on Compared to Uptitration of Metformin in Patients With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT01006590"
+            },
+            {
+              "nct_id": "NCT01095666",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Metformin",
+              "excerpt": "A Phase III Study of BMS-512148 (Dapagliflozin) in Asian Patients With Type 2 Diabetes Who Are Not Well Controlled on Metformin Alone",
+              "url": "https://clinicaltrials.gov/study/NCT01095666"
+            },
+            {
+              "nct_id": "NCT02719132",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Metformin",
+              "excerpt": "Effect of DapagliFLOzin on Quality of Life in Patients With Type 2 Diabetes in a Real Clinical PrActice",
+              "url": "https://clinicaltrials.gov/study/NCT02719132"
+            }
+          ],
+          "supporting_trial_count": 3,
+          "supporting_nct_ids": [
+            "NCT01006590",
+            "NCT01095666",
+            "NCT02719132"
+          ]
+        },
+        {
+          "source": "AstraZeneca",
+          "target": "Pioglitazone",
+          "weight": 3,
+          "citations": [
+            {
+              "nct_id": "NCT00280865",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Pioglitazone",
+              "excerpt": "GLAD: Dose-Finding, Efficacy, and Safety of AZ 242 (Tesaglitazar) in Subjects With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00280865"
+            },
+            {
+              "nct_id": "NCT01082120",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Pioglitazone",
+              "excerpt": "Investigate the Effect of AZD1656 on the Pharmacokinetics of Pioglitazone and Vice Versa in Type 2 Diabetes Mellitus",
+              "url": "https://clinicaltrials.gov/study/NCT01082120"
+            },
+            {
+              "nct_id": "NCT01095666",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Pioglitazone",
+              "excerpt": "A Phase III Study of BMS-512148 (Dapagliflozin) in Asian Patients With Type 2 Diabetes Who Are Not Well Controlled on Metformin Alone",
+              "url": "https://clinicaltrials.gov/study/NCT01095666"
+            }
+          ],
+          "supporting_trial_count": 3,
+          "supporting_nct_ids": [
+            "NCT00280865",
+            "NCT01082120",
+            "NCT01095666"
+          ]
+        },
+        {
+          "source": "Boehringer Ingelheim",
+          "target": "Empagliflozin",
+          "weight": 3,
+          "citations": [
+            {
+              "nct_id": "NCT02632747",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Boehringer Ingelheim ↔ Empagliflozin",
+              "excerpt": "Empagliflozin and ACEi- Effects on Hyperfiltration: BETWEEN Study",
+              "url": "https://clinicaltrials.gov/study/NCT02632747"
+            },
+            {
+              "nct_id": "NCT04233801",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Boehringer Ingelheim ↔ Empagliflozin",
+              "excerpt": "A Study to Test How Well Empagliflozin Works in Chinese Patients With Type 2 Diabetes Who Already Take Insulin",
+              "url": "https://clinicaltrials.gov/study/NCT04233801"
+            },
+            {
+              "nct_id": "NCT06926660",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Boehringer Ingelheim ↔ Empagliflozin",
+              "excerpt": "A Study to Test Whether Vicadrostat in Combination With Empagliflozin Helps People With Chronic Kidney Disease",
+              "url": "https://clinicaltrials.gov/study/NCT06926660"
+            }
+          ],
+          "supporting_trial_count": 3,
+          "supporting_nct_ids": [
+            "NCT02632747",
+            "NCT04233801",
+            "NCT06926660"
+          ]
+        },
+        {
+          "source": "Eli Lilly and Company",
+          "target": "Insulin glargine",
+          "weight": 3,
+          "citations": [
+            {
+              "nct_id": "NCT00279201",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin glargine",
+              "excerpt": "The DURABLE Trial: Evaluating the Durability of Starter Insulin Regimens in Patients With Type 2 Diabetes (IOOV)",
+              "url": "https://clinicaltrials.gov/study/NCT00279201"
+            },
+            {
+              "nct_id": "NCT01584232",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin glargine",
+              "excerpt": "A Study of Dulaglutide in Japanese Participants With Type 2 Diabetes Mellitus",
+              "url": "https://clinicaltrials.gov/study/NCT01584232"
+            },
+            {
+              "nct_id": "NCT01621178",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Insulin glargine",
+              "excerpt": "A Study Comparing Dulaglutide With Insulin Glargine on Glycemic Control in Participants With Type 2 Diabetes (T2D) and Moderate or Severe Chronic Kidney Disease (CKD)",
+              "url": "https://clinicaltrials.gov/study/NCT01621178"
+            }
+          ],
+          "supporting_trial_count": 3,
+          "supporting_nct_ids": [
+            "NCT00279201",
+            "NCT01584232",
+            "NCT01621178"
+          ]
+        },
+        {
+          "source": "Takeda",
+          "target": "Pioglitazone",
+          "weight": 3,
+          "citations": [
+            {
+              "nct_id": "NCT00521742",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Takeda ↔ Pioglitazone",
+              "excerpt": "Efficacy of Pioglitazone Compared to Glyburide in Treating Subjects With Type 2 Diabetes Mellitus and Mild Cardiac Disease",
+              "url": "https://clinicaltrials.gov/study/NCT00521742"
+            },
+            {
+              "nct_id": "NCT00771004",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Takeda ↔ Pioglitazone",
+              "excerpt": "Efficacy of Pioglitazone on Myocardial Function in Patients Undergoing Coronary Stent Implantation.",
+              "url": "https://clinicaltrials.gov/study/NCT00771004"
+            },
+            {
+              "nct_id": "NCT01637935",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Takeda ↔ Pioglitazone",
+              "excerpt": "Cohort Study of Pioglitazone and Bladder Cancer in Patients With Type II Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT01637935"
+            }
+          ],
+          "supporting_trial_count": 3,
+          "supporting_nct_ids": [
+            "NCT00521742",
+            "NCT00771004",
+            "NCT01637935"
+          ]
+        },
+        {
+          "source": "Eli Lilly and Company",
+          "target": "Liraglutide",
+          "weight": 2,
+          "citations": [
+            {
+              "nct_id": "NCT01558271",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Liraglutide",
+              "excerpt": "A Study of LY2189265 in Japanese Participants With Type 2 Diabetes Mellitus",
+              "url": "https://clinicaltrials.gov/study/NCT01558271"
+            },
+            {
+              "nct_id": "NCT02072096",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Liraglutide",
+              "excerpt": "A Comparison of Two Treatment Strategies in Older Participants With Type 2 Diabetes Mellitus (T2DM)",
+              "url": "https://clinicaltrials.gov/study/NCT02072096"
+            }
+          ],
+          "supporting_trial_count": 2,
+          "supporting_nct_ids": [
+            "NCT01558271",
+            "NCT02072096"
+          ]
+        },
+        {
+          "source": "Eli Lilly and Company",
+          "target": "Sitagliptin",
+          "weight": 2,
+          "citations": [
+            {
+              "nct_id": "NCT01408888",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Sitagliptin",
+              "excerpt": "A Study of LY2189265 and Sitagliptin in Participants With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT01408888"
+            },
+            {
+              "nct_id": "NCT02072096",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Sitagliptin",
+              "excerpt": "A Comparison of Two Treatment Strategies in Older Participants With Type 2 Diabetes Mellitus (T2DM)",
+              "url": "https://clinicaltrials.gov/study/NCT02072096"
+            }
+          ],
+          "supporting_trial_count": 2,
+          "supporting_nct_ids": [
+            "NCT01408888",
+            "NCT02072096"
+          ]
+        },
+        {
+          "source": "GlaxoSmithKline",
+          "target": "Metformin",
+          "weight": 2,
+          "citations": [
+            {
+              "nct_id": "NCT00379769",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "GlaxoSmithKline ↔ Metformin",
+              "excerpt": "RECORD: Rosiglitazone Evaluated for Cardiac Outcomes and Regulation of Glycaemia in Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00379769"
+            },
+            {
+              "nct_id": "NCT02202161",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "GlaxoSmithKline ↔ Metformin",
+              "excerpt": "A Study Investigating Safety, Tolerability, Pharmacokinetics and Pharmacodynamics of GSK2330672 Administered With Metformin to Type 2 Diabetes Patients",
+              "url": "https://clinicaltrials.gov/study/NCT02202161"
+            }
+          ],
+          "supporting_trial_count": 2,
+          "supporting_nct_ids": [
+            "NCT00379769",
+            "NCT02202161"
+          ]
+        },
+        {
+          "source": "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK)",
+          "target": "Metformin",
+          "weight": 2,
+          "citations": [
+            {
+              "nct_id": "NCT02960659",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK) ↔ Metformin",
+              "excerpt": "Title: Therapeutic Targets in African-American Youth With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT02960659"
+            },
+            {
+              "nct_id": "NCT04209075",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK) ↔ Metformin",
+              "excerpt": "Prebiotics and Metformin Improve Gut and Hormones in Type 2 Diabetes in Youth (MIGHTY-fiber)",
+              "url": "https://clinicaltrials.gov/study/NCT04209075"
+            }
+          ],
+          "supporting_trial_count": 2,
+          "supporting_nct_ids": [
+            "NCT02960659",
+            "NCT04209075"
+          ]
+        },
+        {
+          "source": "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK)",
+          "target": "Pioglitazone",
+          "weight": 2,
+          "citations": [
+            {
+              "nct_id": "NCT00063622",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK) ↔ Pioglitazone",
+              "excerpt": "Pioglitazone vs Vitamin E vs Placebo for Treatment of Non-Diabetic Patients With Nonalcoholic Steatohepatitis (PIVENS)",
+              "url": "https://clinicaltrials.gov/study/NCT00063622"
+            },
+            {
+              "nct_id": "NCT00656851",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK) ↔ Pioglitazone",
+              "excerpt": "Myocardial Function & FFA Metabolism in HIV Metabolic Syndrome",
+              "url": "https://clinicaltrials.gov/study/NCT00656851"
+            }
+          ],
+          "supporting_trial_count": 2,
+          "supporting_nct_ids": [
+            "NCT00063622",
+            "NCT00656851"
+          ]
+        },
+        {
+          "source": "Novartis Pharmaceuticals",
+          "target": "Metformin",
+          "weight": 2,
+          "citations": [
+            {
+              "nct_id": "NCT00102466",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novartis Pharmaceuticals ↔ Metformin",
+              "excerpt": "Vildagliptin Compared to Gliclazide in Combination With Metformin in Patients With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00102466"
+            },
+            {
+              "nct_id": "NCT00382096",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novartis Pharmaceuticals ↔ Metformin",
+              "excerpt": "Efficacy of Fixed Combination Therapy of Vildagliptin and Metformin Compared to the Individual Monotherapy Components in Drug Naive Patients With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00382096"
+            }
+          ],
+          "supporting_trial_count": 2,
+          "supporting_nct_ids": [
+            "NCT00102466",
+            "NCT00382096"
+          ]
+        },
+        {
+          "source": "Sanofi",
+          "target": "Sitagliptin",
+          "weight": 2,
+          "citations": [
+            {
+              "nct_id": "NCT00751114",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Sitagliptin",
+              "excerpt": "Evaluation of Insulin Glargine Versus Sitagliptin in Insulin-naive Patients",
+              "url": "https://clinicaltrials.gov/study/NCT00751114"
+            },
+            {
+              "nct_id": "NCT00976937",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ Sitagliptin",
+              "excerpt": "24-week Study Comparing Lixisenatide to Sitagliptin as add-on to Metformin in Obese Type 2 Diabetic Patients Younger Than 50 Years",
+              "url": "https://clinicaltrials.gov/study/NCT00976937"
+            }
+          ],
+          "supporting_trial_count": 2,
+          "supporting_nct_ids": [
+            "NCT00751114",
+            "NCT00976937"
+          ]
+        },
+        {
+          "source": "AstraZeneca",
+          "target": "Semaglutide",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT06579105",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ Semaglutide",
+              "excerpt": "Efficacy, Safety, and Tolerability of Once Daily Oral Administration of AZD5004 Versus Placebo for 26 Weeks in Adults With Type 2 Diabetes Mellitus.",
+              "url": "https://clinicaltrials.gov/study/NCT06579105"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT06579105"
+          ]
+        },
+        {
+          "source": "AstraZeneca",
+          "target": "insulin detemir",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT01003184",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "AstraZeneca ↔ insulin detemir",
+              "excerpt": "Efficacy of Once-Weekly Exenatide Versus Once or Twice Daily Insulin Detemir in Patients With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT01003184"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT01003184"
+          ]
+        },
+        {
+          "source": "Boehringer Ingelheim",
+          "target": "Metformin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT01368081",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Boehringer Ingelheim ↔ Metformin",
+              "excerpt": "Empagliflozin (BI 10773) Comprehensive add-on Study in Japanese Subjects With Type 2 Diabetes Mellitus",
+              "url": "https://clinicaltrials.gov/study/NCT01368081"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT01368081"
+          ]
+        },
+        {
+          "source": "Boehringer Ingelheim",
+          "target": "Semaglutide",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT04153929",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Boehringer Ingelheim ↔ Semaglutide",
+              "excerpt": "A Study to Test Whether Different Doses of BI 456906 Are Effective in Treating Adults With Type 2 Diabetes.",
+              "url": "https://clinicaltrials.gov/study/NCT04153929"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT04153929"
+          ]
+        },
+        {
+          "source": "Brigham and Women's Hospital",
+          "target": "Empagliflozin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT04215536",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Brigham and Women's Hospital ↔ Empagliflozin",
+              "excerpt": "Replication of the EMPAREG Diabetes Trial in Healthcare Claims",
+              "url": "https://clinicaltrials.gov/study/NCT04215536"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT04215536"
+          ]
+        },
+        {
+          "source": "Brigham and Women's Hospital",
+          "target": "Glimepiride",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT05099198",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Brigham and Women's Hospital ↔ Glimepiride",
+              "excerpt": "Replication of the GRADE Diabetes Trial in Healthcare Claims Data",
+              "url": "https://clinicaltrials.gov/study/NCT05099198"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT05099198"
+          ]
+        },
+        {
+          "source": "Brigham and Women's Hospital",
+          "target": "Semaglutide",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT05768945",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Brigham and Women's Hospital ↔ Semaglutide",
+              "excerpt": "Data Analysis for Drug Repurposing for Effective Alzheimer's Medicines (DREAM)- Semaglutide v DPP4 Inhibitors",
+              "url": "https://clinicaltrials.gov/study/NCT05768945"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT05768945"
+          ]
+        },
+        {
+          "source": "Brigham and Women's Hospital",
+          "target": "Sitagliptin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT05099198",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Brigham and Women's Hospital ↔ Sitagliptin",
+              "excerpt": "Replication of the GRADE Diabetes Trial in Healthcare Claims Data",
+              "url": "https://clinicaltrials.gov/study/NCT05099198"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT05099198"
+          ]
+        },
+        {
+          "source": "Brigham and Women's Hospital",
+          "target": "Tirzepatide",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT06914154",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Brigham and Women's Hospital ↔ Tirzepatide",
+              "excerpt": "Emulation of the SUMMIT Heart Failure Trial in Healthcare Claims Data",
+              "url": "https://clinicaltrials.gov/study/NCT06914154"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT06914154"
+          ]
+        },
+        {
+          "source": "Eli Lilly and Company",
+          "target": "Glimepiride",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT02072096",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Glimepiride",
+              "excerpt": "A Comparison of Two Treatment Strategies in Older Participants With Type 2 Diabetes Mellitus (T2DM)",
+              "url": "https://clinicaltrials.gov/study/NCT02072096"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT02072096"
+          ]
+        },
+        {
+          "source": "Eli Lilly and Company",
+          "target": "Pioglitazone",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT02072096",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Eli Lilly and Company ↔ Pioglitazone",
+              "excerpt": "A Comparison of Two Treatment Strategies in Older Participants With Type 2 Diabetes Mellitus (T2DM)",
+              "url": "https://clinicaltrials.gov/study/NCT02072096"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT02072096"
+          ]
+        },
+        {
+          "source": "GlaxoSmithKline",
+          "target": "Insulin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT02284009",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "GlaxoSmithKline ↔ Insulin",
+              "excerpt": "Albiglutide Versus Placebo in Insulin-treated Subjects With New-onset Type 1 Diabetes Mellitus",
+              "url": "https://clinicaltrials.gov/study/NCT02284009"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT02284009"
+          ]
+        },
+        {
+          "source": "GlaxoSmithKline",
+          "target": "Pioglitazone",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT00196989",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "GlaxoSmithKline ↔ Pioglitazone",
+              "excerpt": "Study In People With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00196989"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT00196989"
+          ]
+        },
+        {
+          "source": "GlaxoSmithKline",
+          "target": "Sitagliptin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT02202161",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "GlaxoSmithKline ↔ Sitagliptin",
+              "excerpt": "A Study Investigating Safety, Tolerability, Pharmacokinetics and Pharmacodynamics of GSK2330672 Administered With Metformin to Type 2 Diabetes Patients",
+              "url": "https://clinicaltrials.gov/study/NCT02202161"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT02202161"
+          ]
+        },
+        {
+          "source": "Mayo Clinic",
+          "target": "Metformin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT00588172",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Mayo Clinic ↔ Metformin",
+              "excerpt": "Genetic Variation in OCT1 and Response to Metformin",
+              "url": "https://clinicaltrials.gov/study/NCT00588172"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT00588172"
+          ]
+        },
+        {
+          "source": "Mayo Clinic",
+          "target": "Sitagliptin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT00364377",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Mayo Clinic ↔ Sitagliptin",
+              "excerpt": "Incretins in Impaired Fasting Glucose",
+              "url": "https://clinicaltrials.gov/study/NCT00364377"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT00364377"
+          ]
+        },
+        {
+          "source": "Merck Sharp & Dohme LLC",
+          "target": "Insulin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT04029480",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Merck Sharp & Dohme LLC ↔ Insulin",
+              "excerpt": "Ertugliflozin Type 2 Diabetes Mellitus (T2DM) Pediatric Study (MK-8835/PF-04971729) (MK-8835-059)",
+              "url": "https://clinicaltrials.gov/study/NCT04029480"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT04029480"
+          ]
+        },
+        {
+          "source": "Merck Sharp & Dohme LLC",
+          "target": "Insulin glargine",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT02738879",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Merck Sharp & Dohme LLC ↔ Insulin glargine",
+              "excerpt": "Randomized Sitagliptin Withdrawal Study (MK-0431-845)",
+              "url": "https://clinicaltrials.gov/study/NCT02738879"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT02738879"
+          ]
+        },
+        {
+          "source": "Merck Sharp & Dohme LLC",
+          "target": "Pioglitazone",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT00086515",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Merck Sharp & Dohme LLC ↔ Pioglitazone",
+              "excerpt": "Metformin Add-on Study in Patients With Type 2 Diabetes Mellitus (0431-020)(COMPLETED)",
+              "url": "https://clinicaltrials.gov/study/NCT00086515"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT00086515"
+          ]
+        },
+        {
+          "source": "Merck Sharp & Dohme LLC",
+          "target": "Sitagliptin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT02738879",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Merck Sharp & Dohme LLC ↔ Sitagliptin",
+              "excerpt": "Randomized Sitagliptin Withdrawal Study (MK-0431-845)",
+              "url": "https://clinicaltrials.gov/study/NCT02738879"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT02738879"
+          ]
+        },
+        {
+          "source": "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK)",
+          "target": "Liraglutide",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT02960659",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK) ↔ Liraglutide",
+              "excerpt": "Title: Therapeutic Targets in African-American Youth With Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT02960659"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT02960659"
+          ]
+        },
+        {
+          "source": "Novartis Pharmaceuticals",
+          "target": "Empagliflozin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT03152552",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novartis Pharmaceuticals ↔ Empagliflozin",
+              "excerpt": "A Dose Finding Study to Assess the Effect of LIK066 Compared to Placebo or Empagliflozin in Patients With Type 2 Diabetes Mellitus and Heart Failure",
+              "url": "https://clinicaltrials.gov/study/NCT03152552"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT03152552"
+          ]
+        },
+        {
+          "source": "Novo Nordisk A/S",
+          "target": "Empagliflozin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT05444153",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ Empagliflozin",
+              "excerpt": "Research Study to Compare Semaglutide Tablets With Empagliflozin Tablets Taken Once Daily in People With Type 2 Diabetes and Obesity",
+              "url": "https://clinicaltrials.gov/study/NCT05444153"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT05444153"
+          ]
+        },
+        {
+          "source": "Novo Nordisk A/S",
+          "target": "Insulin Glargine",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT03951805",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ Insulin Glargine",
+              "excerpt": "A Research Study to Compare Two Types of Insulin: Insulin 287 and Insulin Glargine in People With Type 2 Diabetes Who Have Not Used Insulin Before",
+              "url": "https://clinicaltrials.gov/study/NCT03951805"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT03951805"
+          ]
+        },
+        {
+          "source": "Novo Nordisk A/S",
+          "target": "Liraglutide",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT03888157",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Novo Nordisk A/S ↔ Liraglutide",
+              "excerpt": "A Research Study Looking at How Victoza® Works in People With Type 2 Diabetes in Iran, Followed in Local Clinical Routine",
+              "url": "https://clinicaltrials.gov/study/NCT03888157"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT03888157"
+          ]
+        },
+        {
+          "source": "Pfizer",
+          "target": "Insulin Lispro",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT00348374",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Pfizer ↔ Insulin Lispro",
+              "excerpt": "Exubera vs Lispro in a Lantus-based Regimen for Improved Glycemic Control in Type 2 Diabetes",
+              "url": "https://clinicaltrials.gov/study/NCT00348374"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT00348374"
+          ]
+        },
+        {
+          "source": "Sanofi",
+          "target": "insulin detemir",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT02967224",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Sanofi ↔ insulin detemir",
+              "excerpt": "A \"Real World\" Trial to Determine Efficacy and Health Outcomes of Toujeo Compared to \"Standard of Care\" Basal Insulins in Insulin Naïve Patients Initiating Insulin",
+              "url": "https://clinicaltrials.gov/study/NCT02967224"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT02967224"
+          ]
+        },
+        {
+          "source": "Takeda",
+          "target": "Metformin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT01318109",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "Takeda ↔ Metformin",
+              "excerpt": "Efficacy and Safety of Alogliptin Used Combination With Metformin in Participants With Type 2 Diabetes in Japan",
+              "url": "https://clinicaltrials.gov/study/NCT01318109"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT01318109"
+          ]
+        },
+        {
+          "source": "University of Colorado, Denver",
+          "target": "Empagliflozin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT05510115",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "University of Colorado, Denver ↔ Empagliflozin",
+              "excerpt": "Feasibility of Study of Empagliflozin in Patients With Autosomal Dominant Polycystic Kidney Disease",
+              "url": "https://clinicaltrials.gov/study/NCT05510115"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT05510115"
+          ]
+        },
+        {
+          "source": "University of Colorado, Denver",
+          "target": "Metformin",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT01775813",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "University of Colorado, Denver ↔ Metformin",
+              "excerpt": "The Health Influences of Puberty (HIP) Study",
+              "url": "https://clinicaltrials.gov/study/NCT01775813"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT01775813"
+          ]
+        },
+        {
+          "source": "University of Colorado, Denver",
+          "target": "Tirzepatide",
+          "weight": 1,
+          "citations": [
+            {
+              "nct_id": "NCT06582875",
+              "field": "protocolSection.sponsorCollaboratorsModule/armsInterventionsModule/conditionsModule",
+              "value": "University of Colorado, Denver ↔ Tirzepatide",
+              "excerpt": "Glucagon-Like Peptide-1 Receptor Agonist in ADPKD",
+              "url": "https://clinicaltrials.gov/study/NCT06582875"
+            }
+          ],
+          "supporting_trial_count": 1,
+          "supporting_nct_ids": [
+            "NCT06582875"
+          ]
+        }
+      ],
+      "metadata": {
+        "source": "ClinicalTrials.gov",
+        "source_api": "https://clinicaltrials.gov/api/v2/studies",
+        "metric": "weight",
+        "unit": "co-occurring trials",
+        "sort": {
+          "field": "weight",
+          "direction": "desc"
+        },
+        "time_granularity": null,
+        "grouping": "entity_pair",
+        "filters_applied": {},
+        "search_terms": [
+          "diabetes"
+        ],
+        "studies_retrieved": 5000,
+        "studies_matched": 5000,
+        "truncated": true,
+        "assumptions": [
+          "'drugs' interpreted as interventions involving pharmaceutical treatments",
+          "Focus on trials related to the condition 'diabetes'"
+        ],
+        "notes": [
+          "Result set was capped at 5000 studies per search term; counts reflect that sample, not the full registry.",
+          "Network pruned to the 15 most connected entities per group and the 56 strongest edges; edge weight is the number of studies in which the two entities co-occur."
+        ]
+      }
+    },
+    "meta": {
+      "request_id": "0ffbade3a469",
+      "query": "Show a network of sponsors and drugs for diabetes trials",
+      "source": "clinicaltrials.gov",
+      "source_api": "https://clinicaltrials.gov/api/v2",
+      "elapsed_ms": 4854,
+      "plan": {
+        "intent": "relationship",
+        "search_terms": [
+          "diabetes"
+        ],
+        "dimension": null,
+        "metric": "trial_count",
+        "relationship": "sponsor_drug",
+        "filters": {},
+        "interpretation": "Compute a network graph showing connections between sponsors and drugs involved in diabetes clinical trials.",
+        "planner_mode": "llm"
+      }
+    }
+  }
+}

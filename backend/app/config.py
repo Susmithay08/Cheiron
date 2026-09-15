@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     ctgov_base_url: str = "https://clinicaltrials.gov/api/v2"
     ctgov_timeout_seconds: float = 30.0
     ctgov_page_size: int = 1000
-    ctgov_max_studies: int = 3000
+    ctgov_max_studies: int = 5000
     ctgov_cache_ttl_seconds: int = 900
 
     # Service

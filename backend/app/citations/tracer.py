@@ -90,7 +90,7 @@ class CitationTracer:
             nct_id=nct_id,
             field=field_path,
             value=value,
-            excerpt=(trial.brief_title or trial.official_title or "")[:300],
+            excerpt=(trial.brief_title or trial.official_title or "")[:200],
             url=STUDY_URL.format(nct_id=nct_id),
         )
 
