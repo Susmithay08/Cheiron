@@ -1823,8 +1823,9 @@
         "studies_matched": 5000,
         "truncated": true,
         "assumptions": [
-          "'drugs' interpreted as interventions involving pharmaceutical treatments",
-          "Focus on trials related to the condition 'diabetes'"
+          "Focus is on interventional trials involving drugs treating diabetes",
+          "Include all phases and study statuses",
+          "Drug names are extracted from the intervention fields"
         ],
         "notes": [
           "Result set was capped at 5000 studies per search term; counts reflect that sample, not the full registry.",
@@ -1833,11 +1834,11 @@
       }
     },
     "meta": {
-      "request_id": "0ffbade3a469",
+      "request_id": "54d09092a6f3",
       "query": "Show a network of sponsors and drugs for diabetes trials",
       "source": "clinicaltrials.gov",
       "source_api": "https://clinicaltrials.gov/api/v2",
-      "elapsed_ms": 4854,
+      "elapsed_ms": 5184,
       "plan": {
         "intent": "relationship",
         "search_terms": [
@@ -1847,7 +1848,7 @@
         "metric": "trial_count",
         "relationship": "sponsor_drug",
         "filters": {},
-        "interpretation": "Compute a network graph showing connections between sponsors and drugs involved in diabetes clinical trials.",
+        "interpretation": "Compute a network graph showing relationships between sponsors and drugs in clinical trials related to diabetes.",
         "planner_mode": "llm"
       }
     }

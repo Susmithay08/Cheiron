@@ -1272,8 +1272,7 @@
         "studies_matched": 5000,
         "truncated": true,
         "assumptions": [
-          "Breast cancer is interpreted as the condition search term.",
-          "All trial statuses and study types are considered since no filters provided."
+          "The focus is on all clinical trial phases for breast cancer without restricting by status or time."
         ],
         "notes": [
           "Result set was capped at 5000 studies per search term; counts reflect that sample, not the full registry."
@@ -1281,11 +1280,11 @@
       }
     },
     "meta": {
-      "request_id": "f61d269f10ce",
+      "request_id": "9f505fe5346d",
       "query": "How are breast cancer trials distributed across phases?",
       "source": "clinicaltrials.gov",
       "source_api": "https://clinicaltrials.gov/api/v2",
-      "elapsed_ms": 5381,
+      "elapsed_ms": 4972,
       "plan": {
         "intent": "distribution",
         "search_terms": [
@@ -1295,7 +1294,7 @@
         "metric": "trial_count",
         "relationship": null,
         "filters": {},
-        "interpretation": "Distribution of breast cancer trials across different clinical trial phases.",
+        "interpretation": "This will compute how breast cancer clinical trials are distributed across different trial phases.",
         "planner_mode": "llm"
       }
     }

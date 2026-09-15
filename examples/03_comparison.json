@@ -767,8 +767,7 @@
         "studies_matched": 220,
         "truncated": false,
         "assumptions": [
-          "Both Ozempic and Wegovy are identified as distinct interventions for comparison",
-          "Phases in trials are available and standardized for grouping"
+          "Phases include standard clinical trial phases from EARLY_PHASE1 to PHASE4"
         ],
         "notes": [
           "Studies matched per series: Ozempic=114, Wegovy=106"
@@ -776,11 +775,11 @@
       }
     },
     "meta": {
-      "request_id": "ea6146bd9aff",
+      "request_id": "4cb86d6596ac",
       "query": "Compare trial counts by phase for Ozempic vs Wegovy",
       "source": "clinicaltrials.gov",
       "source_api": "https://clinicaltrials.gov/api/v2",
-      "elapsed_ms": 1744,
+      "elapsed_ms": 2090,
       "plan": {
         "intent": "comparison",
         "search_terms": [
@@ -791,7 +790,7 @@
         "metric": "trial_count",
         "relationship": null,
         "filters": {},
-        "interpretation": "This query compares the count of clinical trials by phase for Ozempic versus Wegovy.",
+        "interpretation": "Compare the number of clinical trials by phase for the drugs Ozempic and Wegovy.",
         "planner_mode": "llm"
       }
     }

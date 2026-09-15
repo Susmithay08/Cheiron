@@ -1541,8 +1541,9 @@
         "studies_matched": 832,
         "truncated": false,
         "assumptions": [
-          "'Recruiting' means trials with status RECRUITING",
-          "Use trial count as the metric for 'most trials'"
+          "Focus is on Alzheimer's disease as the condition of interest",
+          "Only currently recruiting trials are relevant",
+          "Count of trials (not enrollment) is the best measure for 'most'"
         ],
         "notes": [
           "Showing the top 15 of country values by trial_count."
@@ -1550,11 +1551,11 @@
       }
     },
     "meta": {
-      "request_id": "7d1cc4ecc9e2",
+      "request_id": "968d92daa4a7",
       "query": "Which countries have the most recruiting trials for Alzheimer's disease?",
       "source": "clinicaltrials.gov",
       "source_api": "https://clinicaltrials.gov/api/v2",
-      "elapsed_ms": 2085,
+      "elapsed_ms": 2366,
       "plan": {
         "intent": "geographic",
         "search_terms": [
@@ -1568,7 +1569,7 @@
             "RECRUITING"
           ]
         },
-        "interpretation": "Compute the number of currently recruiting clinical trials for Alzheimer's disease grouped by country.",
+        "interpretation": "Compute the number of recruiting trials for Alzheimer's disease grouped by country to identify which countries have the most such trials.",
         "planner_mode": "llm"
       }
     }

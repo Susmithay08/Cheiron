@@ -13552,9 +13552,8 @@
         "studies_matched": 4557,
         "truncated": false,
         "assumptions": [
-          "Melanoma trials include all phases and statuses unless otherwise filtered.",
-          "Enrollment refers to the number of participants planned or enrolled in each trial.",
-          "Start year is the year the trial began recruitment or officially started."
+          "Enrollment is treated as a numeric value to correlate with start year.",
+          "Start year is the year the trial began recruiting or started."
         ],
         "notes": [
           "Plotted the first 500 of 4557 matching studies that report both fields; the scatter is a sample, not the full set."
@@ -13562,11 +13561,11 @@
       }
     },
     "meta": {
-      "request_id": "53f94c0da130",
+      "request_id": "e4cb1b5df2d3",
       "query": "Is there a relationship between enrollment and start year for melanoma trials?",
       "source": "clinicaltrials.gov",
       "source_api": "https://clinicaltrials.gov/api/v2",
-      "elapsed_ms": 5471,
+      "elapsed_ms": 4974,
       "plan": {
         "intent": "correlation",
         "search_terms": [
@@ -13576,7 +13575,7 @@
         "metric": "trial_count",
         "relationship": null,
         "filters": {},
-        "interpretation": "Assess the relationship between clinical trial enrollment and start year for melanoma trials.",
+        "interpretation": "Analyze the relationship between trial enrollment and the start year for melanoma trials.",
         "planner_mode": "llm"
       }
     }

@@ -269,10 +269,20 @@ def build_network(
     )
 
 
+def _strip_trials_suffix(label: str) -> str:
+    """The planner often returns "asthma trials"; the title adds "Trials" itself."""
+    cleaned = label.strip()
+    for suffix in (" trials", " trial", " studies", " study"):
+        if cleaned.lower().endswith(suffix):
+            return cleaned[: -len(suffix)].strip()
+    return cleaned
+
+
 def title_for(plan: QueryPlan, series_label: Optional[str] = None) -> str:
     """Human-readable chart title derived from the plan (no LLM prose)."""
     metric_title, _ = METRIC_TITLES[plan.metric]
-    subject = series_label or " vs ".join(plan.series_labels) or "Clinical Trials"
+    labels = [_strip_trials_suffix(label) for label in plan.series_labels]
+    subject = series_label or " vs ".join(l for l in labels if l) or "Clinical"
     subject = subject.title() if subject.islower() else subject
 
     if plan.intent.value == "relationship":

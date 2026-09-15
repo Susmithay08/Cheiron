@@ -102,3 +102,22 @@ def test_histogram_of_identical_values_returns_single_bin(trials):
 def test_histogram_without_values_is_empty(trials):
     no_enrollment = [t for t in trials if t.enrollment is None]
     assert agg.build_histogram(no_enrollment, NumericField.ENROLLMENT) == []
+
+
+def test_histogram_isolates_outliers_in_an_overflow_bin():
+    """One 70,000-participant study must not flatten every real trial into one bin."""
+    from app.clinicaltrials.models import Trial
+    from tests.conftest import study
+
+    corpus = [
+        Trial.from_api(study(f"NCT{i:08d}", enrollment=enrollment))
+        for i, enrollment in enumerate([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 70000])
+    ]
+    buckets = agg.build_histogram(corpus, NumericField.ENROLLMENT, bins=5)
+
+    assert buckets[-1].label.startswith(">")
+    assert buckets[-1].value == 1.0
+    assert buckets[-1].nct_ids == ["NCT00000010"]
+    # The remaining studies are spread across bins rather than piled into one.
+    assert sum(b.value for b in buckets) == len(corpus)
+    assert len([b for b in buckets[:-1] if b.value > 0]) >= 3

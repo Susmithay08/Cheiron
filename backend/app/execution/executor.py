@@ -175,7 +175,11 @@ class Executor:
             return builders.build_histogram(
                 buckets, plan, tracer, metadata, numeric_field,
                 title=builders.title_for(plan),
-                description="Distribution of reported target enrollment across matching studies.",
+                description=(
+                    "Distribution of reported enrollment across matching studies. Bins span up "
+                    "to the Tukey upper fence; larger studies are collected in the final "
+                    "overflow bin so outliers do not flatten the shape."
+                ),
             )
 
         buckets = agg.aggregate_by_dimension(trials, dimension, plan.metric, top_n=plan.top_n)

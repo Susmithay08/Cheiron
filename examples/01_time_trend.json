@@ -2952,18 +2952,17 @@
         "studies_matched": 3026,
         "truncated": false,
         "assumptions": [
-          "Counts of trials per calendar year indicates trend over time.",
-          "Drug name search term is sufficient to capture relevant trials."
+          "The question refers to interventional and observational trials unless otherwise specified."
         ],
         "notes": []
       }
     },
     "meta": {
-      "request_id": "28364517249e",
+      "request_id": "a716261a813a",
       "query": "How has the number of trials for this drug changed per year since 2015?",
       "source": "clinicaltrials.gov",
       "source_api": "https://clinicaltrials.gov/api/v2",
-      "elapsed_ms": 4554,
+      "elapsed_ms": 4263,
       "plan": {
         "intent": "time_trend",
         "search_terms": [
@@ -2975,7 +2974,7 @@
         "filters": {
           "start_year": 2015
         },
-        "interpretation": "Number of clinical trials involving Pembrolizumab per year since 2015.",
+        "interpretation": "Trend of the number of clinical trials involving Pembrolizumab each year since 2015.",
         "planner_mode": "llm"
       }
     }

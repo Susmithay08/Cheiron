@@ -340,33 +340,49 @@ def build_scatter(
 
 
 def build_histogram(trials: Iterable[Trial], field_name: NumericField, bins: int = 12) -> list[Bucket]:
-    """Equal-width bins over a numeric field. Returns empty if no values."""
+    """Equal-width bins over a numeric field, robust to outliers.
+
+    Trial enrollment is heavily right-skewed: one 70,000-participant screening
+    study would otherwise squash every real trial into a single bin. So the bins
+    span up to the Tukey upper fence (Q3 + 1.5 x IQR) and everything above goes
+    into a labelled overflow bucket. The tail is disclosed, not discarded, and
+    the rule behaves sensibly at any sample size.
+    """
     accessor = _NUMERIC_ACCESSORS[field_name]
-    valued = [(accessor(t), t) for t in trials]
-    valued = [(v, t) for v, t in valued if v is not None]
+    valued = [(v, t) for v, t in ((accessor(t), t) for t in trials) if v is not None]
     if not valued:
         return []
 
-    values = [v for v, _ in valued]
-    low, high = min(values), max(values)
-    if low == high:
+    values = sorted(v for v, _ in valued)
+    if values[0] == values[-1]:
         return [
             Bucket(
-                key=f"{low:g}",
-                label=f"{low:g}",
+                key=f"{values[0]:g}",
+                label=f"{values[0]:g}",
                 value=float(len(valued)),
                 nct_ids=[t.nct_id for _, t in valued],
                 sort_key=0,
             )
         ]
 
+    q1 = values[len(values) // 4]
+    q3 = values[(3 * len(values)) // 4]
+    low = values[0]
+    fence = q3 + 1.5 * (q3 - q1)
+    high = min(values[-1], fence) if fence > low else values[-1]
+    if high <= low:
+        high = values[-1]
+
     width = (high - low) / bins
     groups: dict[int, list[Trial]] = defaultdict(list)
+    overflow: list[Trial] = []
     for value, trial in valued:
-        index = min(int((value - low) / width), bins - 1)
-        groups[index].append(trial)
+        if value > high:
+            overflow.append(trial)
+        else:
+            groups[min(int((value - low) / width), bins - 1) if value > low else 0].append(trial)
 
-    return [
+    buckets = [
         Bucket(
             key=f"{low + i * width:.0f}-{low + (i + 1) * width:.0f}",
             label=f"{low + i * width:.0f}–{low + (i + 1) * width:.0f}",
@@ -376,3 +392,14 @@ def build_histogram(trials: Iterable[Trial], field_name: NumericField, bins: int
         )
         for i in sorted(groups)
     ]
+    if overflow:
+        buckets.append(
+            Bucket(
+                key=f">{high:.0f}",
+                label=f">{high:.0f}",
+                value=float(len(overflow)),
+                nct_ids=[t.nct_id for t in overflow],
+                sort_key=bins,
+            )
+        )
+    return buckets
