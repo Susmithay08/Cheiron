@@ -22,6 +22,7 @@ that produced it.
 - [Supported query classes](#supported-query-classes)
 - [Visualization types](#visualization-types)
 - [Deep citations](#deep-citations)
+- [Frontend demo](#frontend-demo)
 - [Validation](#validation)
 - [Error handling](#error-handling)
 - [Testing](#testing)
@@ -121,8 +122,23 @@ backend/
       tracer.py                 deep citations
     validation/
       validator.py              final gate on the spec
-  tests/                        87 unit tests + 2 optional live tests
-frontend/                       React + TypeScript demo
+  scripts/
+    generate_examples.py        regenerates examples/ from a running service
+    verify_citations.py         re-checks every cited value against the registry
+  tests/                        204 offline tests + 2 opt-in live tests
+frontend/
+  src/
+    App.tsx                     shell: input, intent chips, history, states
+    api/client.ts               typed fetch wrapper, structured errors
+    lib/synonyms.ts             brand -> generic drug-name expansion
+    charts/
+      VisualizationRenderer.tsx the single switch on visualization.type
+      CartesianCharts.tsx       bar / grouped bar / time series / scatter
+      NetworkGraph.tsx          d3-force layout, plain SVG rendering
+      palette.ts                chart tokens, mirrored from index.css
+    components/                 panels (interpretation, methodology, citations)
+                                and states (loading, empty, error)
+    index.css                   design tokens (@theme) + base styles
 examples/                       actual generated outputs (not handwritten)
 ```
 
@@ -194,9 +210,7 @@ multi-thousand-study fetches fast and payloads small.
 ### Backend
 
 ```bash
-git clone https://github.com/Susmithay08/Cheiron.git
-cd Cheiron
-
+# from the repository root (unzip the submission, or clone the repo)
 cp .env.example .env
 # Edit .env and set LLM_API_KEY (any OpenAI-compatible key).
 # ClinicalTrials.gov itself needs no key.
@@ -262,9 +276,18 @@ All settings come from environment variables (see `.env.example`):
 | `start_year` | integer | no | 1900–2100 | Earliest study start year (inclusive). |
 | `end_year` | integer | no | 1900–2100 | Latest study start year (inclusive). |
 | `status` | enum | no | `RECRUITING \| COMPLETED \| TERMINATED \| …` | Overall recruitment status. |
+| `intent_hint` | enum | no | `time_trend \| distribution \| comparison \| geographic \| relationship \| correlation` | Preferred analysis type (the UI's chips). A hint, not a command — see below. |
 
 Structured fields are **authoritative**: they override whatever the planner
 inferred from the prose.
+
+`intent_hint` is deliberately *not* authoritative. It is offered to the planner
+and used to seed the fallback planner, then applied after validation only if the
+resulting plan is still coherent: asking for a `comparison` of a question that
+names one drug leaves the plan alone, records why in
+`visualization.metadata.assumptions`, and reports
+`meta.plan.intent_hint_applied: false`. A hint re-frames a question; it never
+rewrites it, and it can never force an unbuildable chart.
 
 ```json
 {
@@ -293,8 +316,8 @@ inferred from the prose.
         "year": "2015",
         "trial_count": 117,
         "citations": [ /* see Deep citations */ ],
-        "supporting_trial_count": 117,
-        "supporting_nct_ids": ["NCT02260440", "…"]
+        "supporting_trial_count": 117,        // true total, never capped
+        "supporting_nct_ids": ["NCT02260440", "…"]   // capped at 200 ids
       }
     ],
     "nodes": null,                      // network_graph only
@@ -309,9 +332,10 @@ inferred from the prose.
       "grouping": "year",
       "filters_applied": { "start_year": 2015 },
       "search_terms": ["Pembrolizumab"],
-      "studies_retrieved": 3092,
-      "studies_matched": 3026,
-      "truncated": false,
+      "studies_retrieved": 3092,      // studies actually fetched
+      "studies_matched": 3026,        // survivors of client-side filters
+      "studies_available": 3092,      // CT.gov totalCount, null if unreported
+      "truncated": false,             // true => this is a capped sample
       "assumptions": ["The user wants annual counts from 2015 onwards"],
       "notes": []
     }
@@ -328,7 +352,9 @@ inferred from the prose.
       "relationship": null,
       "filters": { "start_year": 2015 },
       "interpretation": "Number of trials involving Pembrolizumab each year since 2015",
-      "planner_mode": "llm"
+      "planner_mode": "llm",
+      "intent_hint": null,            // what the caller asked for, if anything
+      "intent_hint_applied": null     // true | false | null (no hint supplied)
     }
   }
 }
@@ -337,7 +363,8 @@ inferred from the prose.
 **The renderer contract:** `encoding.<channel>.field` always names a key present
 on every object in `data`. A frontend switches on `type`, reads `encoding`, and
 renders — no backend-specific knowledge required. `frontend/src/charts/VisualizationRenderer.tsx`
-is that switch, in 20 lines, and it is the proof the contract holds.
+is that switch — one 46-line file, one `switch`, no other branching — and it is
+the proof the contract holds.
 
 For `network_graph`, `data` is empty and the payload lives in `nodes` / `edges`,
 addressed by `encoding.node_id`, `encoding.edge_source`, `encoding.edge_target`,
@@ -420,8 +447,8 @@ Every visualized datum carries three things:
       "url": "https://clinicaltrials.gov/study/NCT02260440"
     }
   ],
-  "supporting_trial_count": 41,          // complete count
-  "supporting_nct_ids": ["NCT…", "…"]    // complete ID list (to 200)
+  "supporting_trial_count": 41,          // complete count, never capped
+  "supporting_nct_ids": ["NCT…", "…"]    // contributing IDs, capped at 200
 }
 ```
 
@@ -433,9 +460,12 @@ would produce a multi-megabyte response nobody can read. So:
 - **Detail is capped** at `MAX_CITATIONS_PER_DATUM` (default 5) full citations
   per datum, selected deterministically (sorted by NCT ID) so the same query
   returns the same citations.
-- **Provenance is complete**: `supporting_trial_count` is the true count, and
-  `supporting_nct_ids` lists the contributing studies, so an auditor can pull
-  any of them.
+- **Provenance is complete in count, bounded in listing**:
+  `supporting_trial_count` is always the true total; `supporting_nct_ids` lists
+  the contributing studies up to 200 (`builders.MAX_SUPPORTING_IDS`), so a bar
+  resting on 20,000 studies cannot inflate the response. When the two differ,
+  the list is a prefix, and the UI labels it "first 200 of 20,000" rather than
+  "all".
 - **Citations are specific, not generic.** Each names the CT.gov field path the
   value came from and the value itself — `startDateStruct.date: "2022-03-10"`
   for a 2022 time bucket, `leadSponsor.name ↔ intervention` for a network edge.
@@ -451,6 +481,71 @@ contributing IDs.
 
 ---
 
+## Frontend demo
+
+Not required by the assignment, but it is the honest test of whether the output
+contract is renderable: `VisualizationRenderer.tsx` is one `switch` on
+`visualization.type` and nothing else. There is no branch anywhere in the
+frontend that depends on *what was asked* — no `if (query.includes("..."))`.
+
+### What it does
+
+| Element | Behaviour |
+|---------|-----------|
+| **Question input** | Multiline, 500-char cap, Enter to run and Shift+Enter for a newline. An empty or whitespace-only question is refused inline ("Please enter a question") and **never reaches the network** — no request, no request id, no loading state, no history entry. |
+| **Intent chips** | Time Trend · Distribution · Comparison · Geography · Network · Correlation. A chip sets `intent_hint` on the request; it does **not** rewrite what the user typed. Clicking the active chip clears the hint. The one exception is an empty input, where the chip seeds its example question — onboarding, not substitution. |
+| **Run** | Disabled while in flight, so it cannot be double-submitted. A submission from another route (a recent-query pill) supersedes the request in flight: the older one is aborted and its response discarded by a monotonic request counter, so a slow early answer can never overwrite a fast later one. |
+| **Recent queries** | Up to five, newest first, de-duplicated, persisted in `localStorage`. They store the user's own wording and the hint used, and restore both. Corrupt stored data is ignored rather than fatal. |
+| **Charts** | Recharts for the four cartesian types, `d3-force` plus plain SVG for the network (pan, zoom, hover-to-focus neighbours, click an edge to cite it). |
+| **Citations** | Click any bar, point or edge: NCT IDs as clickable chips, the exact supporting field and value, the excerpt, and an expandable list of contributing ids, labelled "first 200 of N" when the list is capped. |
+| **Errors** | One card shape for every failure — icon, human heading, human message, discreet request id. Raw JSON is never the primary content; structured details sit behind a collapsed disclosure. |
+| **No results** | `NO_MATCHING_TRIALS` is deliberately **not** styled as an error. A search that legitimately matched nothing is an empty state, not a fault, so it keeps the neutral `edge` border and a purple search icon and reads "No results found / Try rephrasing your question or using a different drug/condition name". Every other code gets the danger border (`#FF4444` at 30%) and the alert icon. |
+
+### Brand → generic drug names
+
+`lib/synonyms.ts` appends the generic name when a recognised brand appears:
+`"How many Keytruda trials are there?"` is sent as
+`"How many Keytruda (Pembrolizumab) trials are there?"`. CT.gov indexes
+interventions under generic names far more consistently, so this materially
+improves retrieval, while *appending* rather than replacing keeps the question
+the user actually asked intact on screen and in history.
+
+It is deliberately a small, auditable map (Keytruda, Ozempic, Wegovy, Humira,
+Opdivo, Tecentriq) rather than a fuzzy matcher: a wrong expansion would silently
+change the question. The transform is idempotent — re-running it can never
+produce `Keytruda (Pembrolizumab) (Pembrolizumab)` — word-boundary matched, and
+skipped entirely when the generic name is already present. It lives in the
+client because it is a *search-input* convenience; the API contract is
+unchanged, and a direct API caller is unaffected.
+
+### Design system
+
+Dark by construction, with tokens declared once in `index.css` as Tailwind v4
+`@theme` variables and mirrored for the charts in `charts/palette.ts` — no
+component hard-codes a colour.
+
+| Token | Value | Use |
+|-------|-------|-----|
+| `canvas` | `#0D0D14` | Page and network-graph background |
+| `card` / `elevated` | `#16161F` / `#1C1C28` | Cards, tooltips, chips |
+| `brand` / `brand-bright` | `#7C3AED` / `#9F67FF` | Primary marks, focus, active chip |
+| `brand-soft` / `brand-deep` | `#C084FC` / `#4F1D96` | Additional series, network edges |
+| `ink` / `muted` | `#F0F0FF` / `#8888AA` | Primary and secondary text |
+| `edge` | `#2A2A3D` | Borders, gridlines, axes |
+| `danger` | `#FF4444` | Error borders (at 30% opacity) and messages — not used for the no-results state |
+
+Cards are 16px radius with `0 4px 24px rgba(0,0,0,0.4)`; controls and chips are
+12px. Type is Inter. Multi-series charts use ordered shades of the same purple
+rather than unrelated hues. Layout is responsive down to ~400px: the input row
+and panel grid stack, and the chart height steps down.
+
+Accessibility basics are covered — every control is a real `<button>`, the input
+has a label, chips expose `aria-pressed`, errors are `role="alert"`, the loading
+state is `aria-live`, the network SVG has an accessible name, and there is a
+visible focus ring on every focusable element.
+
+---
+
 ## Validation
 
 | Stage | Checks |
@@ -459,7 +554,7 @@ contributing IDs.
 | **Planner output** | Intent, dimension, metric, relationship, chart type and every filter key validated against enums; `extra="forbid"`; comparison requires ≥2 terms; correlation requires two distinct axes; safely repairable shapes (e.g. `time_trend` with a non-year dimension) are corrected rather than rejected. |
 | **API response** | Payload must be a dict; `studies` must be a list; pagination consistency; every study missing an NCT ID is dropped; every optional nested field is missing-safe. |
 | **Visualization** | Every encoding channel names a field present in `data`; quantitative channels are numeric and finite (no NaN/inf); network edges point at existing nodes; edge weights numeric; empty charts rejected. |
-| **Citations** | Every cited NCT ID must appear in the set of studies this request actually retrieved. |
+| **Citations** | Every cited NCT ID — in `citations` *and* in `supporting_nct_ids` — must appear in the set of studies this request actually retrieved. |
 
 On failure the service returns a structured error. It never substitutes
 fabricated fallback data — an honest error is more useful than a plausible chart.
@@ -487,9 +582,17 @@ fabricated fallback data — an honest error is more useful than a plausible cha
 | `INSUFFICIENT_FIELD_COVERAGE` | 422 | Studies matched but none report the needed field. |
 | `INSUFFICIENT_RELATIONSHIPS` | 422 | Not enough linked entities to form a network. |
 | `CTGOV_UNAVAILABLE` | 502 | CT.gov down/rate-limited after retries. |
-| `CTGOV_BAD_QUERY` | 502 | CT.gov rejected the constructed query. |
+| `CTGOV_BAD_QUERY` | 502 | CT.gov rejected the constructed query (HTTP 400/422). |
+| `CTGOV_NOT_FOUND` | 502 | CT.gov has no record at that address (HTTP 404/410). |
+| `CTGOV_CLIENT_ERROR` | 502 | CT.gov refused the request (HTTP 401/403/405). |
+| `CTGOV_BAD_RESPONSE` | 502 | CT.gov answered 200 with a body that is not usable JSON. |
 | `INVALID_VISUALIZATION` | 500 | The spec failed output validation and was withheld. |
 | `INTERNAL_ERROR` | 500 | Anything unhandled. Stack traces go to logs, never to the client. |
+
+Every error carries a `request_id` except `INVALID_REQUEST`, which is raised by
+FastAPI's schema validation before the handler that mints one ever runs. The UI
+handles both cases: the id is shown when present and the card is simply quieter
+when it is not.
 
 **Ambiguous queries** are answered, not refused. "Show me trials for cancer"
 runs the broad search and records the interpretation in
@@ -509,26 +612,72 @@ Any field whose name looks like a credential is scrubbed before logging.
 
 ```bash
 cd backend
-pytest                      # 87 unit tests, no network access
-pytest -m live -o addopts=-q  # 2 optional tests against the real CT.gov API
+pytest                          # 204 offline tests
+pytest -m live -o addopts=-q    # 2 opt-in tests against the real CT.gov API
+
+cd ../frontend
+npm test                        # 70 offline tests (vitest + jsdom)
+npm run typecheck               # tsc -b --force
+npm run build                   # production build
+
+# opt-in: the real UI against a running backend and the live registry
+VITE_API_BASE=http://127.0.0.1:8000 npm test
+
+# opt-in: re-verify every citation in examples/ against ClinicalTrials.gov
+python backend/scripts/verify_citations.py
 ```
 
-```
-87 passed, 2 deselected in 9.5s
-```
+All external calls in the default suites are mocked (`respx` for HTTP, a stub
+LLM, a stubbed `fetch` in the browser tests), so both suites are deterministic
+and run offline.
 
-All external calls are mocked (`respx` for HTTP, a stub for the LLM), so the
-suite is deterministic and runs offline. Coverage by area:
+### What was actually verified, and what was not
 
-| File | Tests |
-|------|-------|
-| `test_models.py` | Sparse records, partial dates (`2019`, `2019-07`), missing NCT IDs, multi-phase studies, invalid date ranges. |
-| `test_aggregations.py` | Phase/year/country counts, ordinal ordering, gap filling, `top_n`, metrics ignoring missing values, network weights and pruning, scatter exclusions, histogram edge cases. |
-| `test_planner.py` | Valid plans, invented intents/dimensions/chart types, injected `sql`/`python` keys dropped, comparison/correlation constraints, repair round, fallback on LLM failure, structured-filter precedence, all six heuristic intents. |
-| `test_client.py` | Multi-page pagination with tokens, cap enforcement, retry on 5xx, no-retry on 400, malformed payloads, cache hits, filter push-down. |
-| `test_visualization.py` | Router defaults and overrides, encoding/data agreement, citation correctness and capping, refusal to cite unretrieved trials, and five validator rejection cases. |
-| `test_api.py` | Happy path, citation integrity, empty results, CT.gov outage, LLM failure fallback, insufficient coverage, six malformed requests, health/examples/OpenAPI. |
-| `test_live_ctgov.py` | Real API shape and filter behaviour (opt-in). |
+Stated precisely, because "it works" is not a claim worth making vaguely.
+
+**Verified**, from a fresh clone of the submitted commit — new virtualenv,
+`npm ci`, nothing carried over from the development tree:
+
+- 204 offline backend tests and 2 opt-in live tests against the real registry.
+- 70 offline frontend tests, `tsc -b --force`, and a production `vite build`.
+- 8 opt-in end-to-end tests driving the real React app against a locally started
+  backend and the live registry — one per visualization type plus the
+  no-results card, so the frontend is proven to render the backend's contract
+  from real data, not fixtures.
+- A real `POST /analyze` against ClinicalTrials.gov with no LLM key configured,
+  confirming the heuristic planner path works on a fresh checkout.
+- Every citation in `examples/` re-checked against the registry by
+  `scripts/verify_citations.py` (9,066/9,066).
+
+**Not verified:** rendered pixels. No Chrome, Playwright or other browser driver
+was available in this environment, so the visual layer — fonts, actual chart
+rendering, scroll behaviour, and true responsive reflow at 1280/768/400px — is
+covered only by jsdom tests, the type-check and the build. The design tokens,
+responsive classes and accessibility attributes are in the source and are
+described below, but they were not observed in a real browser.
+
+### Backend — 204 tests
+
+| File | Tests | Coverage |
+|------|-------|----------|
+| `test_adversarial.py` | 112 | Prompt injection, fabricated model output, hostile/Unicode/overlong queries, every CT.gov failure code, pagination loops, cache isolation, concurrency, degenerate data, citation provenance attacks, the render contract for all six chart types. |
+| `test_planner.py` | 23 | Valid plans, invented intents/dimensions/chart types, injected `sql`/`python` keys dropped, comparison/correlation constraints, repair round, fallback on LLM failure, structured-filter precedence, all six heuristic intents. |
+| `test_visualization.py` | 21 | Router defaults and overrides, encoding/data agreement, citation correctness and capping, refusal to cite unretrieved trials, validator rejection cases. |
+| `test_api.py` | 16 | Happy path, citation integrity, empty results, CT.gov outage, LLM failure fallback, insufficient coverage, malformed requests, health/examples/OpenAPI. |
+| `test_aggregations.py` | 14 | Phase/year/country counts, ordinal ordering, gap filling, `top_n`, metrics ignoring missing values, network weights and pruning, scatter exclusions, histogram bins. |
+| `test_client.py` | 9 | Multi-page pagination with tokens, cap enforcement, retry on 5xx, no-retry on 400, malformed payloads, cache hits, filter push-down. |
+| `test_models.py` | 6 | Sparse records, partial dates (`2019`, `2019-07`), missing NCT IDs, multi-phase studies, invalid date ranges. |
+| `test_logging.py` | 3 | Credential-shaped log fields are redacted; request ids propagate. |
+| `test_live_ctgov.py` | 2 | Real API shape and filter behaviour (opt-in, `-m live`). |
+
+### Frontend — 70 tests
+
+| File | Tests | Coverage |
+|------|-------|----------|
+| `App.test.tsx` | 32 | The empty-query guard (asserting `fetch` is *not* called), chips as hints rather than query replacement, the outbound request body, synonym expansion, every error card, stale-response races, rapid Run clicks, recent-query persistence. |
+| `charts/VisualizationRenderer.test.tsx` | 24 | All six types render from the spec alone, including empty data; encoding is read rather than assumed (a renamed field renders with no code change); scatter axis safety; click-to-cite on bars and network edges; unknown types. |
+| `lib/synonyms.test.ts` | 14 | Every brand mapping, mixed casing, idempotency, already-expanded queries, shared generics, non-matches. |
+| `live.integration.test.tsx` | 8 | Opt-in: the real app against a running backend and the live registry — one case per visualization type plus the no-results card. |
 
 ---
 
@@ -544,12 +693,14 @@ by posting to `/analyze`, not written by hand. `examples/README.md` indexes them
 | `03_comparison.json` | "Compare trial counts by phase for Ozempic vs Wegovy" | `grouped_bar_chart`, 2 series × 6 phases |
 | `04_geographic.json` | "Which countries have the most recruiting trials for Alzheimer's disease?" | `bar_chart`, top 15 countries |
 | `05_network.json` | "Show a network of sponsors and drugs for diabetes trials" | `network_graph`, 29 nodes, 56 edges |
-| `06_correlation.json` | "Is there a relationship between enrollment and start year for melanoma trials?" | `scatter_plot`, 500 studies |
+| `06_correlation.json` | "Is there a relationship between enrollment and start year for uveal melanoma trials?" | `scatter_plot`, 306 studies |
 | `07_error_no_matching_trials.json` | "How many trials exist for zzqqxx-nonexistent-compound?" | `404 NO_MATCHING_TRIALS` |
 | `08_histogram.json` | "Show the distribution of enrollment sizes for glioblastoma trials" | `histogram`, 13 bins incl. a disclosed overflow bin |
+| `09_intent_hint.json` | Same question as `02`, with `intent_hint: "time_trend"` | `time_series` — the chip re-frames the question without rewriting it |
 
-Regenerate them at any time against a running backend — the numbers move as the
-registry does, which is the point.
+Regenerate them at any time with `python backend/scripts/generate_examples.py`
+against a running backend — the numbers move as the registry does, which is the
+point.
 
 ---
 
@@ -560,7 +711,7 @@ It costs some flexibility — the system can only answer questions expressible i
 the vocabulary — and buys correctness that can be tested, and a service that
 still works when the LLM provider does not.
 
-**A deterministic fallback planner.** ~80 lines of keyword matching covering all
+**A deterministic fallback planner.** ~95 lines of keyword matching covering all
 six intents. It is not as good as the LLM at ambiguous prose, and it does not
 need to be: it exists so an LLM outage degrades quality instead of causing an
 outage, and so the whole system is demonstrable without a key. `planner_mode` in
@@ -571,9 +722,19 @@ an LLM that emits `{"sql": "..."}` or `{"dimension": "investigator_seniority"}`
 gets rejected at the schema boundary, before any I/O.
 
 **Pagination cap with disclosure.** 5,000 studies per term keeps latency in the
-seconds for even the largest drugs. When it binds, `truncated: true` and an
-explicit note appear. The alternative — silently charting page one — is the
-failure mode this design is most concerned with.
+seconds for even the largest drugs. Truncation is reported by the *client*, from
+CT.gov's own `totalCount` and whether a page token remained — not inferred by
+comparing a row count to the cap, which gets the answer wrong the moment a
+request has two search arms. When it binds, `truncated: true`,
+`studies_available` and an explicit note all appear. The alternative — silently
+charting page one — is the failure mode this design is most concerned with.
+Pagination also refuses to follow a page token it has already seen, so a
+misbehaving registry cannot spin the fetch until the cap.
+
+**Retries distinguish "try again" from "never".** 429 and 5xx are retried with
+exponential backoff; 400/401/403/404/405/410/422 and an unparseable 200 body
+fail immediately. Retrying a permanent client error only spends rate-limit
+budget on an answer that cannot change.
 
 **Field selection driven by the plan.** A phase distribution fetches three
 fields, not the full study record. This is the difference between a 4-second and
@@ -621,8 +782,12 @@ Stated plainly:
   record, so "breast cancer" can match a lung-cancer study that mentions breast
   cancer in eligibility criteria. Better precision would need field-scoped
   queries (`query.cond` / `query.intr`) chosen per entity type.
-- **No synonym expansion.** "Keytruda" and "Pembrolizumab" are different
-  searches. A drug-name normalizer (RxNorm/ChEMBL) would fix this.
+- **Synonym coverage is a six-entry list, and it is client-side.** The UI
+  expands Keytruda, Ozempic, Wegovy, Humira, Opdivo and Tecentriq to their
+  generic names; every other brand name ("Trulicity", "MK-3475") is still a
+  different search from its generic, and a caller hitting the API directly gets
+  no expansion at all. A real drug-name normalizer (RxNorm/ChEMBL) in the
+  backend is the proper fix.
 - **The 5,000-study cap binds on the largest queries.** Disclosed in metadata,
   but counts for very common terms are samples.
 - **Geographic output is a bar chart, not a map.** The country data would support
@@ -634,11 +799,24 @@ Stated plainly:
   undercounts time-filtered results.
 - **Network layout is computed in the browser.** Above ~200 nodes the force
   simulation gets sluggish; pruning keeps real responses well below that.
-- **The frontend was verified by type-check, production build and module
-  compilation, not by automated browser tests** — no browser driver was
-  available in the build environment.
+- **The frontend has no real-browser test.** It is covered by 70 jsdom tests
+  (including 8 that drive the real app against a running backend and the live
+  registry), a type-check and a production build — but no Chrome/Playwright
+  driver was available in this environment, so rendered pixels, fonts, scroll
+  behaviour and true responsive layout were not machine-verified.
+- **Two jsdom caveats worth knowing when reading the frontend tests.** jsdom
+  reports zero width for SVG text, so Recharts truncates every tick label and
+  the chart tests assert on structure (one mark per datum) rather than label
+  text; and Node's `fetch` rejects jsdom's `AbortSignal`, so the opt-in live
+  test drops the signal. Neither affects a real browser.
 - **No auth or rate limiting** on the service itself; it assumes a trusted
   local/demo deployment.
+- **`intent_hint` only re-frames; it cannot add information.** Asking for a
+  "comparison" of a question that names one thing is declined rather than
+  invented — correct, but it means a chip can visibly do nothing, which the
+  response explains in `assumptions` and the UI surfaces.
+- **The in-process cache dies with the process** and is not shared across
+  replicas, so a restart re-fetches everything.
 
 ---
 
@@ -663,7 +841,8 @@ With more time, in priority order:
    retrieval is still running.
 8. **Golden-file tests** that pin example outputs against recorded CT.gov
    fixtures, catching regressions in aggregation logic.
-9. **Playwright tests** covering all six chart types in a real browser.
+9. **Playwright tests** covering all six chart types in a real browser, closing
+   the one gap the current suite cannot: actual rendered output.
 
 ---
 
@@ -694,6 +873,9 @@ being specific about the split.
 - The **network semantics**: prune by connectivity per group, drop placebo-class
   nodes, weight edges by co-occurring studies.
 - The **fallback planner's** existence and its role.
+- The **`intent_hint` contract**: that a UI affordance may express a preference
+  but must never rewrite the user's question or force a chart the data cannot
+  support, and that whether it was honoured is reported back.
 
 ### Generated by Claude Code and then reviewed and adapted
 
@@ -733,12 +915,37 @@ being specific about the split.
    order? Do the year buckets include zeros? Do the network edges name real
    sponsor-drug pairs? This is what surfaced the `Placebo` node problem and the
    float-vs-integer counts.
-6. **Spot-checking citations by hand** — opening the returned NCT URLs and
-   confirming the cited field value matches the registry record.
+6. **Automated citation re-verification against the registry.**
+   `backend/scripts/verify_citations.py` takes the committed `examples/` outputs
+   and, *without* going through this service, re-fetches every cited study
+   directly from `/studies/{nctId}` to check that the registry really reports the
+   value the chart claims: that a year bucket's citations carry that exact
+   `startDateStruct.date` and that its year matches the bucket, that a phase bar's
+   citations resolve to that display phase, that a country bar's citations list
+   that country, that a histogram bin's citations report that enrollment count,
+   that *both* endpoints of a network edge appear in the cited study's sponsor,
+   intervention or condition fields, and that a scatter point's plotted
+   coordinates equal that study's own enrollment and start year. It also enforces
+   the structural rules: a non-zero datum must carry citations, and every cited
+   NCT ID must be one of that datum's own supporting studies.
+
+   On the submitted examples: **9,066 / 9,066 claims verified**, covering all
+   eight non-error examples and every one of the six visualization types. Re-run
+   it yourself — it needs nothing but network access, and it takes a few minutes
+   because it really does fetch every cited study one at a time. This is what
+   distinguishes "citations are attached" from "citations support the number".
 7. **The frontend as a contract test.** `VisualizationRenderer.tsx` consumes only
    `type` and `encoding`. That it renders all six chart types with no per-query
    special-casing is the evidence the output schema is genuinely
-   frontend-friendly.
+   frontend-friendly — and one test proves it by renaming both encoded fields to
+   invented names and asserting the chart still draws.
+8. **An adversarial pass over the finished system**, which is where most of the
+   later fixes came from: multi-arm truncation reporting, retrying permanent 4xx
+   errors, dropped empty histogram bins, a log field the credential scrubber was
+   silently redacting, and a scatter log-axis that hid zero-enrollment studies.
+9. **A clean-clone run** — fresh copy, fresh virtualenv, `npm ci`, both suites,
+   both servers, example queries — to confirm nothing depends on undocumented
+   local state.
 
 ### Other tools
 

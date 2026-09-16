@@ -10,7 +10,7 @@ from typing import Any, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
-from app.agent.intent import Phase, TrialStatus
+from app.agent.intent import Intent, Phase, TrialStatus
 from app.visualization.schemas import Visualization
 
 MAX_QUERY_LENGTH = 500
@@ -64,6 +64,14 @@ class AnalyzeRequest(BaseModel):
     status: Optional[TrialStatus] = Field(
         default=None, description="Keep only studies with this overall recruitment status."
     )
+    intent_hint: Optional[Intent] = Field(
+        default=None,
+        description=(
+            "Preferred analysis type, e.g. from a UI chip. A hint, never a command: the "
+            "planner adopts it only when the question can actually support it, and the "
+            "response reports whether it was applied. Omit to let the planner decide."
+        ),
+    )
 
     @field_validator("query")
     @classmethod
@@ -74,8 +82,14 @@ class AnalyzeRequest(BaseModel):
         return cleaned
 
     def structured_filters(self) -> dict[str, Any]:
-        """The structured fields only, as a plain dict."""
-        return self.model_dump(exclude={"query"}, exclude_none=True, mode="json")
+        """The structured *filter* fields only, as a plain dict.
+
+        `intent_hint` is deliberately excluded: it steers interpretation rather
+        than narrowing the search, and is passed to the planner separately.
+        """
+        return self.model_dump(
+            exclude={"query", "intent_hint"}, exclude_none=True, mode="json"
+        )
 
 
 class PlanSummary(BaseModel):
@@ -89,6 +103,16 @@ class PlanSummary(BaseModel):
     filters: dict[str, Any] = Field(default_factory=dict)
     interpretation: str = ""
     planner_mode: str = Field(description="'llm' or 'heuristic' (deterministic fallback).")
+    intent_hint: Optional[str] = Field(
+        default=None, description="The intent hint supplied by the caller, if any."
+    )
+    intent_hint_applied: Optional[bool] = Field(
+        default=None,
+        description=(
+            "True if the hint was adopted, False if the question could not support it "
+            "and the planner's own intent was kept. Null when no hint was supplied."
+        ),
+    )
 
 
 class ResponseMeta(BaseModel):

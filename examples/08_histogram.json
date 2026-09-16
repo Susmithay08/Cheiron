@@ -30,7 +30,7 @@
       },
       "data": [
         {
-          "bin": "0–14",
+          "bin": "0\u201314",
           "trial_count": 508,
           "citations": [
             {
@@ -274,7 +274,7 @@
           ]
         },
         {
-          "bin": "14–27",
+          "bin": "14\u201327",
           "trial_count": 440,
           "citations": [
             {
@@ -518,7 +518,7 @@
           ]
         },
         {
-          "bin": "27–41",
+          "bin": "27\u201341",
           "trial_count": 370,
           "citations": [
             {
@@ -762,7 +762,7 @@
           ]
         },
         {
-          "bin": "41–54",
+          "bin": "41\u201354",
           "trial_count": 214,
           "citations": [
             {
@@ -1006,7 +1006,7 @@
           ]
         },
         {
-          "bin": "54–68",
+          "bin": "54\u201368",
           "trial_count": 188,
           "citations": [
             {
@@ -1238,7 +1238,7 @@
           ]
         },
         {
-          "bin": "68–82",
+          "bin": "68\u201382",
           "trial_count": 107,
           "citations": [
             {
@@ -1389,7 +1389,7 @@
           ]
         },
         {
-          "bin": "82–95",
+          "bin": "82\u201395",
           "trial_count": 67,
           "citations": [
             {
@@ -1500,7 +1500,7 @@
           ]
         },
         {
-          "bin": "95–109",
+          "bin": "95\u2013109",
           "trial_count": 66,
           "citations": [
             {
@@ -1610,7 +1610,7 @@
           ]
         },
         {
-          "bin": "109–123",
+          "bin": "109\u2013123",
           "trial_count": 59,
           "citations": [
             {
@@ -1713,7 +1713,7 @@
           ]
         },
         {
-          "bin": "123–136",
+          "bin": "123\u2013136",
           "trial_count": 26,
           "citations": [
             {
@@ -1783,14 +1783,14 @@
           ]
         },
         {
-          "bin": "136–150",
+          "bin": "136\u2013150",
           "trial_count": 27,
           "citations": [
             {
               "nct_id": "NCT00431561",
               "field": "protocolSection.designModule.enrollmentInfo.count",
               "value": "141",
-              "excerpt": "Phase IIb Clinical Trial With TGF-β2 Antisense Compound AP 12009 for Recurrent or Refractory High-grade Glioma",
+              "excerpt": "Phase IIb Clinical Trial With TGF-\u03b22 Antisense Compound AP 12009 for Recurrent or Refractory High-grade Glioma",
               "url": "https://clinicaltrials.gov/study/NCT00431561"
             },
             {
@@ -1854,7 +1854,7 @@
           ]
         },
         {
-          "bin": "150–164",
+          "bin": "150\u2013164",
           "trial_count": 35,
           "citations": [
             {
@@ -2197,18 +2197,20 @@
         "studies_retrieved": 2456,
         "studies_matched": 2456,
         "truncated": false,
+        "studies_available": 2456,
         "assumptions": [
-          "Enrollment size is an appropriate dimension for distribution analysis."
+          "User meant trial enrollment size by number of participants",
+          "Enrollment is a numeric dimension appropriate for distribution analysis"
         ],
         "notes": []
       }
     },
     "meta": {
-      "request_id": "773d1ad4ecb8",
+      "request_id": "180fa594f416",
       "query": "Show the distribution of enrollment sizes for glioblastoma trials",
       "source": "clinicaltrials.gov",
       "source_api": "https://clinicaltrials.gov/api/v2",
-      "elapsed_ms": 3236,
+      "elapsed_ms": 3454,
       "plan": {
         "intent": "distribution",
         "search_terms": [
@@ -2218,8 +2220,10 @@
         "metric": "trial_count",
         "relationship": null,
         "filters": {},
-        "interpretation": "Distribution of the number of clinical trials for glioblastoma by enrollment size.",
-        "planner_mode": "llm"
+        "interpretation": "Compute a histogram showing the distribution of trial enrollment sizes for glioblastoma trials.",
+        "planner_mode": "llm",
+        "intent_hint": null,
+        "intent_hint_applied": null
       }
     }
   }

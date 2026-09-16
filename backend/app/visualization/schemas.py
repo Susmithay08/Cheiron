@@ -70,7 +70,18 @@ class VisualizationMetadata(BaseModel):
     studies_retrieved: int = 0
     studies_matched: int = 0
     truncated: bool = Field(
-        default=False, description="True if the pagination cap stopped the fetch early."
+        default=False,
+        description=(
+            "True if more studies matched on ClinicalTrials.gov than were retrieved, so the "
+            "chart describes a capped sample rather than the full result set."
+        ),
+    )
+    studies_available: Optional[int] = Field(
+        default=None,
+        description=(
+            "Total matching studies reported by ClinicalTrials.gov (`totalCount`), summed "
+            "across search arms. None when the registry did not report it."
+        ),
     )
     assumptions: list[str] = Field(default_factory=list)
     notes: list[str] = Field(default_factory=list)

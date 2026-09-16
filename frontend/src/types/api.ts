@@ -76,6 +76,7 @@ export interface VisualizationMetadata {
   studies_retrieved: number;
   studies_matched: number;
   truncated: boolean;
+  studies_available?: number | null;
   assumptions: string[];
   notes: string[];
 }
@@ -91,6 +92,29 @@ export interface Visualization {
   metadata: VisualizationMetadata;
 }
 
+/** Intent hints the UI can send; mirrors the backend `Intent` enum. */
+export type IntentHint =
+  | "time_trend"
+  | "distribution"
+  | "comparison"
+  | "geographic"
+  | "relationship"
+  | "correlation";
+
+/** The request body accepted by POST /analyze. Only `query` is required. */
+export interface AnalyzeRequest {
+  query: string;
+  intent_hint?: IntentHint | null;
+  drug_name?: string;
+  condition?: string;
+  trial_phase?: string;
+  sponsor?: string;
+  country?: string;
+  start_year?: number;
+  end_year?: number;
+  status?: string;
+}
+
 export interface PlanSummary {
   intent: string;
   search_terms: string[];
@@ -100,6 +124,8 @@ export interface PlanSummary {
   filters: Record<string, unknown>;
   interpretation: string;
   planner_mode: string;
+  intent_hint?: string | null;
+  intent_hint_applied?: boolean | null;
 }
 
 export interface AnalyzeResponse {

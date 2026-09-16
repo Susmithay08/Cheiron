@@ -13,7 +13,7 @@ from typing import Optional
 
 from app.agent.intent import Dimension, Intent, NumericField, QueryPlan
 from app.citations.tracer import CitationTracer
-from app.clinicaltrials.client import ClinicalTrialsClient, CTGovError
+from app.clinicaltrials.client import ClinicalTrialsClient, CTGovError, SearchResult
 from app.clinicaltrials.field_mapping import fields_for_plan
 from app.clinicaltrials.models import Trial
 from app.config import Settings, get_settings
@@ -40,9 +40,11 @@ class Executor:
         self.retrieved_nct_ids: set[str] = set()
 
     # ---- retrieval -------------------------------------------------------
-    async def _fetch_series(self, plan: QueryPlan, term: Optional[str]) -> list[Trial]:
-        """Fetch and normalize one search arm."""
-        raw = await self.client.search_studies(
+    async def _fetch_series(
+        self, plan: QueryPlan, term: Optional[str]
+    ) -> tuple[list[Trial], SearchResult]:
+        """Fetch and normalize one search arm, keeping the retrieval report."""
+        result = await self.client.search_studies(
             query_term=term or None,
             sponsor=plan.filters.sponsor,
             location=plan.filters.country,
@@ -51,9 +53,15 @@ class Executor:
             study_type=plan.filters.study_type,
             fields=fields_for_plan(plan),
         )
-        trials = [t for t in (Trial.from_api(study) for study in raw) if t is not None]
-        log_event("normalized", term=term, raw=len(raw), normalized=len(trials))
-        return trials
+        trials = [t for t in (Trial.from_api(s) for s in result.studies) if t is not None]
+        log_event(
+            "normalized",
+            term=term,
+            raw=len(result.studies),
+            normalized=len(trials),
+            truncated=result.truncated,
+        )
+        return trials, result
 
     def _apply_client_filters(self, trials: list[Trial], plan: QueryPlan) -> list[Trial]:
         """Year windows are not expressible as a CT.gov filter, so apply them here."""
@@ -76,10 +84,12 @@ class Executor:
     async def execute(self, plan: QueryPlan) -> Visualization:
         terms = plan.search_terms or [None]
         try:
-            results = await asyncio.gather(*(self._fetch_series(plan, t) for t in terms))
+            fetched = await asyncio.gather(*(self._fetch_series(plan, t) for t in terms))
         except CTGovError as exc:
             raise ExecutionError(str(exc), code=exc.code) from exc
 
+        results = [trials for trials, _ in fetched]
+        reports: list[SearchResult] = [report for _, report in fetched]
         retrieved = sum(len(r) for r in results)
         series_trials = [self._apply_client_filters(r, plan) for r in results]
         matched = sum(len(r) for r in series_trials)
@@ -107,14 +117,25 @@ class Executor:
             search_terms=plan.search_terms,
             studies_retrieved=retrieved,
             studies_matched=matched,
-            truncated=retrieved >= self.settings.ctgov_max_studies,
+            truncated=any(r.truncated for r in reports),
+            studies_available=(
+                sum(r.total_available for r in reports)
+                if all(r.total_available is not None for r in reports) and reports
+                else None
+            ),
             assumptions=list(plan.assumptions),
             notes=notes,
         )
         if metadata.truncated:
+            available = (
+                f"{metadata.studies_available:,} studies match on ClinicalTrials.gov, but "
+                if metadata.studies_available
+                else ""
+            )
             metadata.notes.append(
-                f"Result set was capped at {self.settings.ctgov_max_studies} studies per search "
-                "term; counts reflect that sample, not the full registry."
+                f"{available}the fetch stopped at the configured cap of "
+                f"{self.settings.ctgov_max_studies:,} studies per search term; counts reflect "
+                "that sample, not the full registry."
             )
 
         builder = {

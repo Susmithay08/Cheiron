@@ -104,9 +104,12 @@ async def analyze(payload: AnalyzeRequest, request: Request):
 
     planner: Planner = request.app.state.planner
     try:
-        plan, planner_mode = await planner.plan(payload.query, payload.structured_filters())
+        planned = await planner.plan(
+            payload.query, payload.structured_filters(), payload.intent_hint
+        )
     except PlanningError as exc:
         return _error(exc.code, str(exc), {}, 400, request_id)
+    plan = planned.plan
 
     try:
         async with ClinicalTrialsClient(settings, request.app.state.http_client) as client:
@@ -151,7 +154,9 @@ async def analyze(payload: AnalyzeRequest, request: Request):
                 relationship=plan.relationship.value if plan.relationship else None,
                 filters=plan.filters.model_dump(exclude_none=True, exclude_defaults=True),
                 interpretation=plan.interpretation,
-                planner_mode=planner_mode,
+                planner_mode=planned.mode,
+                intent_hint=planned.intent_hint.value if planned.intent_hint else None,
+                intent_hint_applied=planned.intent_hint_applied,
             ),
         ),
     )

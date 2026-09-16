@@ -382,15 +382,17 @@ def build_histogram(trials: Iterable[Trial], field_name: NumericField, bins: int
         else:
             groups[min(int((value - low) / width), bins - 1) if value > low else 0].append(trial)
 
+    # Every bin is emitted, including empty ones: a histogram that silently drops
+    # its gaps misrepresents the shape of the distribution.
     buckets = [
         Bucket(
             key=f"{low + i * width:.0f}-{low + (i + 1) * width:.0f}",
             label=f"{low + i * width:.0f}–{low + (i + 1) * width:.0f}",
-            value=float(len(groups[i])),
-            nct_ids=[t.nct_id for t in groups[i]],
+            value=float(len(groups.get(i, []))),
+            nct_ids=[t.nct_id for t in groups.get(i, [])],
             sort_key=i,
         )
-        for i in sorted(groups)
+        for i in range(bins)
     ]
     if overflow:
         buckets.append(

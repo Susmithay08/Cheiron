@@ -8,6 +8,7 @@
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
+    "types": ["vitest/globals"],
     "isolatedModules": true,
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true

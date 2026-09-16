@@ -2,7 +2,8 @@
  * Recharts renderers for the four cartesian chart types.
  *
  * Every component reads field names from `visualization.encoding` rather than
- * hard-coding them, which is the whole point of the backend contract.
+ * hard-coding them, which is the whole point of the backend contract: there is
+ * no branch anywhere below that depends on what was asked.
  */
 
 import {
@@ -22,7 +23,7 @@ import {
 } from "recharts";
 
 import type { Datum, Visualization } from "../types/api";
-import { AXIS, colorFor } from "./palette";
+import { AXIS, colorFor, TOKENS } from "./palette";
 
 interface Props {
   visualization: Visualization;
@@ -34,6 +35,12 @@ const keyOf = (datum: Datum, viz: Visualization) => {
   const x = String(datum[viz.encoding.x?.field ?? ""] ?? "");
   const series = viz.encoding.series ? String(datum.series ?? "") : "";
   return `${x}::${series}`;
+};
+
+/** Long category labels (sponsors, conditions) need truncating on the axis. */
+const truncate = (value: unknown, max = 22) => {
+  const text = String(value ?? "");
+  return text.length > max ? `${text.slice(0, max)}…` : text;
 };
 
 /** Splits flat rows into one array per series, aligned on the x value. */
@@ -51,20 +58,24 @@ function pivotBySeries(viz: Visualization) {
   return { seriesNames, rows: [...byX.values()] };
 }
 
-function ChartTooltip({ active, payload, unit }: any) {
+function ChartTooltip({ active, payload, label, unit }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-lg border border-slate-200 bg-white/95 px-3 py-2 text-sm shadow-lg">
-      <p className="font-medium text-slate-900">{payload[0].payload.__label ?? payload[0].payload[Object.keys(payload[0].payload)[0]]}</p>
+    <div className="max-w-xs rounded-control border border-edge bg-elevated px-3 py-2 text-sm shadow-card">
+      <p className="font-medium text-ink">{String(label ?? "")}</p>
       {payload.map((entry: any) => (
         <p key={entry.dataKey} style={{ color: entry.color }}>
-          {entry.name}: <span className="font-semibold">{entry.value?.toLocaleString()}</span> {unit}
+          {entry.name}:{" "}
+          <span className="font-semibold">{Number(entry.value).toLocaleString()}</span>{" "}
+          <span className="text-muted">{unit}</span>
         </p>
       ))}
-      <p className="mt-1 text-xs text-slate-400">Click a point for its sources</p>
+      <p className="mt-1 text-xs text-muted">Click for sources</p>
     </div>
   );
 }
+
+const gridProps = { stroke: AXIS.grid, strokeOpacity: 0.55, vertical: false } as const;
 
 export function BarOrHistogram({ visualization, onSelect, selectedKey }: Props) {
   const xField = visualization.encoding.x!.field;
@@ -72,25 +83,34 @@ export function BarOrHistogram({ visualization, onSelect, selectedKey }: Props) 
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={visualization.data} margin={{ top: 8, right: 16, bottom: 56, left: 8 }}>
-        <CartesianGrid stroke={AXIS.grid} vertical={false} />
+      <BarChart data={visualization.data} margin={{ top: 8, right: 16, bottom: 56, left: 0 }}>
+        <CartesianGrid {...gridProps} />
         <XAxis
           dataKey={xField}
           stroke={AXIS.stroke}
-          tick={{ ...AXIS.tick }}
+          tick={AXIS.tick}
+          tickFormatter={truncate}
           angle={-35}
           textAnchor="end"
           interval={0}
           height={70}
         />
-        <YAxis stroke={AXIS.stroke} tick={AXIS.tick} allowDecimals={false} />
-        <Tooltip content={<ChartTooltip unit={visualization.metadata.unit} />} cursor={{ fill: "#f1f5f9" }} />
-        <Bar dataKey={yField} radius={[4, 4, 0, 0]} onClick={(_, index) => onSelect(visualization.data[index])}>
+        <YAxis stroke={AXIS.stroke} tick={AXIS.tick} allowDecimals={false} width={56} />
+        <Tooltip
+          content={<ChartTooltip unit={visualization.metadata.unit} />}
+          cursor={{ fill: AXIS.cursor }}
+        />
+        <Bar
+          dataKey={yField}
+          radius={[4, 4, 0, 0]}
+          isAnimationActive={false}
+          onClick={(_, index) => onSelect(visualization.data[index])}
+        >
           {visualization.data.map((datum, index) => (
             <Cell
               key={index}
               cursor="pointer"
-              fill={keyOf(datum, visualization) === selectedKey ? "#1e293b" : colorFor(0)}
+              fill={keyOf(datum, visualization) === selectedKey ? AXIS.selected : colorFor(0)}
             />
           ))}
         </Bar>
@@ -112,12 +132,24 @@ export function GroupedBar({ visualization, onSelect }: Props) {
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={rows} margin={{ top: 8, right: 16, bottom: 56, left: 8 }}>
-        <CartesianGrid stroke={AXIS.grid} vertical={false} />
-        <XAxis dataKey={xField} stroke={AXIS.stroke} tick={AXIS.tick} angle={-35} textAnchor="end" interval={0} height={70} />
-        <YAxis stroke={AXIS.stroke} tick={AXIS.tick} allowDecimals={false} />
-        <Tooltip content={<ChartTooltip unit={visualization.metadata.unit} />} cursor={{ fill: "#f1f5f9" }} />
-        <Legend verticalAlign="top" height={32} />
+      <BarChart data={rows} margin={{ top: 8, right: 16, bottom: 56, left: 0 }}>
+        <CartesianGrid {...gridProps} />
+        <XAxis
+          dataKey={xField}
+          stroke={AXIS.stroke}
+          tick={AXIS.tick}
+          tickFormatter={truncate}
+          angle={-35}
+          textAnchor="end"
+          interval={0}
+          height={70}
+        />
+        <YAxis stroke={AXIS.stroke} tick={AXIS.tick} allowDecimals={false} width={56} />
+        <Tooltip
+          content={<ChartTooltip unit={visualization.metadata.unit} />}
+          cursor={{ fill: AXIS.cursor }}
+        />
+        <Legend verticalAlign="top" height={32} wrapperStyle={{ color: TOKENS.muted }} />
         {seriesNames.map((name, index) => (
           <Bar
             key={name}
@@ -125,6 +157,7 @@ export function GroupedBar({ visualization, onSelect }: Props) {
             fill={colorFor(index)}
             radius={[4, 4, 0, 0]}
             cursor="pointer"
+            isAnimationActive={false}
             onClick={(payload) => selectRow(String(payload[xField]), name)}
           />
         ))}
@@ -143,23 +176,29 @@ export function TimeSeries({ visualization, onSelect }: Props) {
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={visualization.data}
-          margin={{ top: 8, right: 24, bottom: 24, left: 8 }}
+          margin={{ top: 8, right: 24, bottom: 24, left: 0 }}
           onClick={(state: any) => {
             const index = state?.activeTooltipIndex;
-            if (typeof index === "number") onSelect(visualization.data[index]);
+            if (typeof index === "number" && visualization.data[index]) {
+              onSelect(visualization.data[index]);
+            }
           }}
         >
-          <CartesianGrid stroke={AXIS.grid} vertical={false} />
+          <CartesianGrid {...gridProps} />
           <XAxis dataKey={xField} stroke={AXIS.stroke} tick={AXIS.tick} />
-          <YAxis stroke={AXIS.stroke} tick={AXIS.tick} allowDecimals={false} />
-          <Tooltip content={<ChartTooltip unit={visualization.metadata.unit} />} />
+          <YAxis stroke={AXIS.stroke} tick={AXIS.tick} allowDecimals={false} width={56} />
+          <Tooltip
+            content={<ChartTooltip unit={visualization.metadata.unit} />}
+            cursor={{ stroke: TOKENS.brandBright, strokeOpacity: 0.4 }}
+          />
           <Line
             type="monotone"
             dataKey={yField}
-            stroke={colorFor(0)}
+            stroke={TOKENS.brandBright}
             strokeWidth={2.5}
-            dot={{ r: 3, cursor: "pointer" }}
-            activeDot={{ r: 6, cursor: "pointer" }}
+            isAnimationActive={false}
+            dot={{ r: 3, cursor: "pointer", fill: TOKENS.brand, stroke: TOKENS.brandBright }}
+            activeDot={{ r: 6, cursor: "pointer", fill: TOKENS.brandSoft }}
           />
         </LineChart>
       </ResponsiveContainer>
@@ -169,14 +208,25 @@ export function TimeSeries({ visualization, onSelect }: Props) {
   const { seriesNames, rows } = pivotBySeries(visualization);
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={rows} margin={{ top: 8, right: 24, bottom: 24, left: 8 }}>
-        <CartesianGrid stroke={AXIS.grid} vertical={false} />
+      <LineChart data={rows} margin={{ top: 8, right: 24, bottom: 24, left: 0 }}>
+        <CartesianGrid {...gridProps} />
         <XAxis dataKey={xField} stroke={AXIS.stroke} tick={AXIS.tick} />
-        <YAxis stroke={AXIS.stroke} tick={AXIS.tick} allowDecimals={false} />
-        <Tooltip content={<ChartTooltip unit={visualization.metadata.unit} />} />
-        <Legend verticalAlign="top" height={32} />
+        <YAxis stroke={AXIS.stroke} tick={AXIS.tick} allowDecimals={false} width={56} />
+        <Tooltip
+          content={<ChartTooltip unit={visualization.metadata.unit} />}
+          cursor={{ stroke: TOKENS.brandBright, strokeOpacity: 0.4 }}
+        />
+        <Legend verticalAlign="top" height={32} wrapperStyle={{ color: TOKENS.muted }} />
         {seriesNames.map((name, index) => (
-          <Line key={name} type="monotone" dataKey={name} stroke={colorFor(index)} strokeWidth={2.5} dot={false} />
+          <Line
+            key={name}
+            type="monotone"
+            dataKey={name}
+            stroke={colorFor(index)}
+            strokeWidth={2.5}
+            isAnimationActive={false}
+            dot={false}
+          />
         ))}
       </LineChart>
     </ResponsiveContainer>
@@ -191,10 +241,16 @@ export function ScatterPlot({ visualization, onSelect }: Props) {
     ? [...new Set(visualization.data.map((d) => String(d[colorField])))]
     : ["all"];
 
+  // Enrollment spans several orders of magnitude, so a log scale is usually the
+  // readable choice — but a log axis silently *drops* zero, and "0 enrolled" is
+  // a real, reportable value. Only use it when every point is strictly positive.
+  const yValues = visualization.data.map((d) => Number(d[yField]));
+  const useLog = yValues.length > 0 && yValues.every((v) => Number.isFinite(v) && v > 0);
+
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <ScatterChart margin={{ top: 8, right: 24, bottom: 32, left: 8 }}>
-        <CartesianGrid stroke={AXIS.grid} />
+      <ScatterChart margin={{ top: 8, right: 24, bottom: 32, left: 0 }}>
+        <CartesianGrid stroke={AXIS.grid} strokeOpacity={0.55} />
         <XAxis
           type="number"
           dataKey={xField}
@@ -209,27 +265,31 @@ export function ScatterPlot({ visualization, onSelect }: Props) {
           name={visualization.encoding.y!.title ?? yField}
           stroke={AXIS.stroke}
           tick={AXIS.tick}
-          scale="log"
-          domain={[1, "dataMax"]}
-          allowDataOverflow
+          width={64}
+          {...(useLog
+            ? { scale: "log" as const, domain: ["auto", "auto"] as [string, string] }
+            : { domain: [0, "dataMax"] as [number, string] })}
         />
         <Tooltip
-          cursor={{ strokeDasharray: "3 3" }}
+          cursor={{ strokeDasharray: "3 3", stroke: TOKENS.brandBright }}
           content={({ active, payload }: any) => {
             if (!active || !payload?.length) return null;
             const point = payload[0].payload;
             return (
-              <div className="max-w-xs rounded-lg border border-slate-200 bg-white/95 px-3 py-2 text-sm shadow-lg">
-                <p className="font-medium text-slate-900">{point.nct_id}</p>
-                <p className="text-slate-600">{String(point.label).slice(0, 110)}</p>
-                <p className="mt-1 text-slate-500">
-                  {xField}: {point[xField]} · {yField}: {Number(point[yField]).toLocaleString()}
+              <div className="max-w-xs rounded-control border border-edge bg-elevated px-3 py-2 text-sm shadow-card">
+                <p className="font-mono font-medium text-brand-soft">{String(point.nct_id)}</p>
+                <p className="text-muted">{String(point.label ?? "").slice(0, 110)}</p>
+                <p className="mt-1 text-ink">
+                  {xField}: {String(point[xField])} · {yField}:{" "}
+                  {Number(point[yField]).toLocaleString()}
                 </p>
               </div>
             );
           }}
         />
-        {groups.length > 1 && <Legend verticalAlign="top" height={32} />}
+        {groups.length > 1 && (
+          <Legend verticalAlign="top" height={32} wrapperStyle={{ color: TOKENS.muted }} />
+        )}
         {groups.map((group, index) => (
           <Scatter
             key={group}
@@ -240,8 +300,9 @@ export function ScatterPlot({ visualization, onSelect }: Props) {
                 : visualization.data
             }
             fill={colorFor(index)}
-            fillOpacity={0.65}
+            fillOpacity={0.7}
             cursor="pointer"
+            isAnimationActive={false}
             onClick={(point: any) => onSelect(point.payload ?? point)}
           />
         ))}

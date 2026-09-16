@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import json
 import re
+from dataclasses import dataclass
 from typing import Any, Optional
 
 from pydantic import ValidationError
@@ -36,31 +37,100 @@ class PlanningError(RuntimeError):
         self.code = code
 
 
+@dataclass(slots=True)
+class PlanningResult:
+    """A validated plan plus how it was reached, for the response metadata."""
+
+    plan: QueryPlan
+    mode: str
+    intent_hint: Optional[Intent] = None
+    intent_hint_applied: Optional[bool] = None
+
+
 class Planner:
     def __init__(self, llm: Optional[LLMClient] = None):
         self.llm = llm or LLMClient()
 
-    async def plan(self, query: str, structured: dict[str, Any]) -> tuple[QueryPlan, str]:
-        """Return (plan, planner_mode) where mode is 'llm' or 'heuristic'."""
+    async def plan(
+        self,
+        query: str,
+        structured: dict[str, Any],
+        intent_hint: Optional[Intent] = None,
+    ) -> PlanningResult:
+        """Interpret `query` into a validated plan.
+
+        `intent_hint` (e.g. a UI chip) is a preference, not an instruction: it is
+        offered to the LLM and used to seed the fallback planner, and is then
+        applied after validation only if the resulting plan is still coherent.
+        """
         structured = {k: v for k, v in structured.items() if v not in (None, [], "")}
 
         if self.llm.enabled:
             try:
-                raw = await self._ask_llm(query, structured)
+                raw = await self._ask_llm(query, structured, intent_hint)
                 plan = self._validate(raw)
                 plan = self._apply_structured(plan, structured)
-                log_event("planner_completed", mode="llm", intent=plan.intent.value)
-                return plan, "llm"
+                plan, applied = self._apply_hint(plan, intent_hint)
+                log_event("planner_completed", mode="llm", intent=plan.intent.value,
+                          hint_applied=applied)
+                return PlanningResult(plan, "llm", intent_hint, applied)
             except (LLMError, PlanningError) as exc:
                 log_event("planner_llm_failed", error=str(exc)[:200])
 
-        plan = self._apply_structured(heuristic_plan(query, structured), structured)
-        log_event("planner_completed", mode="heuristic", intent=plan.intent.value)
-        return plan, "heuristic"
+        plan = self._apply_structured(
+            heuristic_plan(query, structured, intent_hint), structured
+        )
+        plan, applied = self._apply_hint(plan, intent_hint)
+        log_event("planner_completed", mode="heuristic", intent=plan.intent.value,
+                  hint_applied=applied)
+        return PlanningResult(plan, "heuristic", intent_hint, applied)
 
-    async def _ask_llm(self, query: str, structured: dict[str, Any]) -> dict:
+    @staticmethod
+    def _apply_hint(
+        plan: QueryPlan, intent_hint: Optional[Intent]
+    ) -> tuple[QueryPlan, Optional[bool]]:
+        """Adopt the caller's intent hint when the plan can still be built from it.
+
+        A hint that the question cannot support — "comparison" on a question that
+        names one thing — is dropped rather than forced, and the fact is recorded
+        in the plan's assumptions so the UI can explain itself.
+        """
+        if intent_hint is None:
+            return plan, None
+        if plan.intent == intent_hint:
+            return plan, True
+
+        data = plan.model_dump()
+        data["intent"] = intent_hint.value
+        # Let the intent's own validator re-derive dimension/relationship/axes.
+        for key in ("dimension", "relationship", "x_field", "y_field", "visualization"):
+            data[key] = None
+        try:
+            hinted = QueryPlan.model_validate(data)
+        except ValidationError:
+            plan.assumptions = (plan.assumptions + [
+                f"Requested '{intent_hint.value}' view is not supported by this question; "
+                f"showed a '{plan.intent.value}' view instead."
+            ])[:6]
+            return plan, False
+
+        hinted.assumptions = (hinted.assumptions + [
+            f"Analysis type '{intent_hint.value}' was requested explicitly."
+        ])[:6]
+        return hinted, True
+
+    async def _ask_llm(
+        self, query: str, structured: dict[str, Any], intent_hint: Optional[Intent] = None
+    ) -> dict:
         user = PLANNER_USER_TEMPLATE.format(
-            query=query, structured=json.dumps(structured, default=str) or "{}"
+            query=query,
+            structured=json.dumps(structured, default=str) or "{}",
+            intent_hint=(
+                f"The user explicitly asked for a '{intent_hint.value}' analysis. Use that "
+                "intent unless the question genuinely cannot support it."
+                if intent_hint
+                else "(none — choose the intent yourself)"
+            ),
         )
         raw = await self.llm.complete_json(PLANNER_SYSTEM_PROMPT, user)
         try:
@@ -132,12 +202,29 @@ _STOPWORDS = {
 
 _INTENT_PATTERNS: list[tuple[Intent, tuple[str, ...]]] = [
     (Intent.RELATIONSHIP, ("network", "co-occur", "cooccur", "graph of")),
-    (Intent.CORRELATION, ("correlat", "scatter", "vs enrollment", "against enrollment")),
+    (Intent.CORRELATION, ("correlat", "scatter", "vs enrollment", "against enrollment",
+                          "relationship between", "association between", "related to")),
     (Intent.COMPARISON, (" vs ", " versus ", "compare")),
     (Intent.GEOGRAPHIC, ("country", "countries", "geograph", "where are")),
     (Intent.TIME_TREND, ("over time", "per year", "each year", "by year", "trend", "since")),
     (Intent.DISTRIBUTION, ("distribut", "breakdown", "across phases", "by phase", "how are")),
 ]
+
+# A correlation needs two numeric axes. "Relationship between X and Y" is only a
+# scatter question when X and Y are actually numbers — otherwise ("relationship
+# between sponsors and conditions") it is a network, and claiming it is a
+# correlation would silently plot the wrong thing.
+_NUMERIC_FIELD_WORDS: list[tuple[NumericField, tuple[str, ...]]] = [
+    (NumericField.ENROLLMENT, ("enrollment", "enrolment", "participants", "sample size",
+                               "study size")),
+    (NumericField.START_YEAR, ("start year", "start date", "year started", "start_year")),
+    (NumericField.DURATION_DAYS, ("duration", "how long", "length of")),
+]
+
+
+def _numeric_fields_in(text: str) -> list[NumericField]:
+    """Numeric axes named in the question, in a stable order."""
+    return [field for field, needles in _NUMERIC_FIELD_WORDS if any(n in text for n in needles)]
 
 _DIMENSION_PATTERNS: list[tuple[Dimension, tuple[str, ...]]] = [
     (Dimension.PHASE, ("phase",)),
@@ -158,7 +245,9 @@ _RELATIONSHIP_PATTERNS: list[tuple[RelationshipKind, tuple[str, ...]]] = [
 ]
 
 
-def heuristic_plan(query: str, structured: dict[str, Any]) -> QueryPlan:
+def heuristic_plan(
+    query: str, structured: dict[str, Any], intent_hint: Optional[Intent] = None
+) -> QueryPlan:
     """Keyword-based planner used when the LLM is unavailable or unusable.
 
     Intentionally simple: it keeps the service demonstrable without a key and
@@ -166,9 +255,18 @@ def heuristic_plan(query: str, structured: dict[str, Any]) -> QueryPlan:
     """
     text = f" {query.lower().strip()} "
 
-    intent = Intent.DISTRIBUTION
-    for candidate, needles in _INTENT_PATTERNS:
-        if any(n in text for n in needles):
+    numeric_fields = _numeric_fields_in(text)
+
+    intent = intent_hint or Intent.DISTRIBUTION
+    if intent_hint is None:
+        for candidate, needles in _INTENT_PATTERNS:
+            if not any(n in text for n in needles):
+                continue
+            if candidate == Intent.CORRELATION and len(numeric_fields) < 2:
+                # Phrased like a correlation but without two numeric axes, so it
+                # is a question about how entities relate: a network, not a scatter.
+                intent = Intent.RELATIONSHIP
+                break
             intent = candidate
             break
 
@@ -202,11 +300,24 @@ def heuristic_plan(query: str, structured: dict[str, Any]) -> QueryPlan:
         filters={"statuses": statuses, "phases": phases, "start_year": start_year},
         dimension=dimension,
         relationship=relationship,
-        x_field=NumericField.START_YEAR if intent == Intent.CORRELATION else None,
-        y_field=NumericField.ENROLLMENT if intent == Intent.CORRELATION else None,
+        # Use the axes the question actually named, not a fixed default pair.
+        x_field=_axis(numeric_fields, 0) if intent == Intent.CORRELATION else None,
+        y_field=_axis(numeric_fields, 1) if intent == Intent.CORRELATION else None,
         interpretation=f"Keyword-derived plan for: {query.strip()[:200]}",
         assumptions=["Plan derived by the deterministic keyword planner (LLM unavailable)."],
     )
+
+
+def _axis(numeric_fields: list[NumericField], position: int) -> NumericField:
+    """Pick the nth named numeric axis, falling back to the common default pair."""
+    default = (NumericField.START_YEAR, NumericField.ENROLLMENT)[position]
+    if position < len(numeric_fields):
+        return numeric_fields[position]
+    # Never return the same field twice: the plan validator rejects that.
+    other = numeric_fields[0] if numeric_fields else None
+    if default == other:
+        return NumericField.ENROLLMENT if position == 1 else NumericField.START_YEAR
+    return default
 
 
 def _extract_terms(query: str, structured: dict[str, Any], intent: Intent) -> list[str]:

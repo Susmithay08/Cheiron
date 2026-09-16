@@ -1423,7 +1423,7 @@
               "nct_id": "NCT03219450",
               "field": "protocolSection.statusModule.startDateStruct.date",
               "value": "2021-08-18",
-              "excerpt": "A Personalized Neoantigen Cancer Vaccine in Treatment Naïve, Asymptomatic Patients With IGHV Unmutated CLL.",
+              "excerpt": "A Personalized Neoantigen Cancer Vaccine in Treatment Na\u00efve, Asymptomatic Patients With IGHV Unmutated CLL.",
               "url": "https://clinicaltrials.gov/study/NCT03219450"
             },
             {
@@ -1695,7 +1695,7 @@
               "nct_id": "NCT04118868",
               "field": "protocolSection.statusModule.startDateStruct.date",
               "value": "2022-08-31",
-              "excerpt": "Pembrolizumab Administered Via the Sofusa® DoseConnect™ in Patients With Relapsed/Refractory Cutaneous T-cell Lymphoma.",
+              "excerpt": "Pembrolizumab Administered Via the Sofusa\u00ae DoseConnect\u2122 in Patients With Relapsed/Refractory Cutaneous T-cell Lymphoma.",
               "url": "https://clinicaltrials.gov/study/NCT04118868"
             }
           ],
@@ -2951,18 +2951,20 @@
         "studies_retrieved": 3092,
         "studies_matched": 3026,
         "truncated": false,
+        "studies_available": 3092,
         "assumptions": [
-          "The question refers to interventional and observational trials unless otherwise specified."
+          "The user wants to see annual counts of trials starting each year.",
+          "No status or phase filters specified, so all trials with Pembrolizumab are included."
         ],
         "notes": []
       }
     },
     "meta": {
-      "request_id": "a716261a813a",
+      "request_id": "e36a32fc8810",
       "query": "How has the number of trials for this drug changed per year since 2015?",
       "source": "clinicaltrials.gov",
       "source_api": "https://clinicaltrials.gov/api/v2",
-      "elapsed_ms": 4263,
+      "elapsed_ms": 4678,
       "plan": {
         "intent": "time_trend",
         "search_terms": [
@@ -2974,8 +2976,10 @@
         "filters": {
           "start_year": 2015
         },
-        "interpretation": "Trend of the number of clinical trials involving Pembrolizumab each year since 2015.",
-        "planner_mode": "llm"
+        "interpretation": "This will compute how the number of clinical trials studying Pembrolizumab has changed each year since 2015.",
+        "planner_mode": "llm",
+        "intent_hint": null,
+        "intent_hint_applied": null
       }
     }
   }

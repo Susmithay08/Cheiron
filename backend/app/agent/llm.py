@@ -63,5 +63,8 @@ class LLMClient:
             raise LLMError(f"LLM returned non-JSON content: {exc}", code="LLM_BAD_OUTPUT") from exc
         if not isinstance(parsed, dict):
             raise LLMError("LLM returned JSON that is not an object", code="LLM_BAD_OUTPUT")
-        log_event("llm_completed", model=self.settings.llm_model, keys=sorted(parsed)[:12])
+        # Field is named `plan_fields`, not `keys`: the log scrubber redacts
+        # anything whose name looks like a credential, which would blank this.
+        log_event("llm_completed", model=self.settings.llm_model,
+                  plan_fields=sorted(parsed)[:12])
         return parsed

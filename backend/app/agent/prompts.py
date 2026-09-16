@@ -62,4 +62,8 @@ Caller-supplied structured filters (already validated, honour them and do not
 contradict them):
 {structured}
 
+Requested analysis type (a UI hint from the user — honour it unless the question
+genuinely cannot support it, and say so in `assumptions` if you cannot):
+{intent_hint}
+
 Return the JSON plan now."""

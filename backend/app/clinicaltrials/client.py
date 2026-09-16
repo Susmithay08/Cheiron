@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import json
 import time
+from dataclasses import dataclass, field
 from typing import Any, Optional
 
 import httpx
@@ -13,6 +14,40 @@ from app.config import Settings, get_settings
 from app.logging_utils import log_event
 
 RETRYABLE_STATUS = {429, 500, 502, 503, 504}
+
+# 4xx responses that are the *caller's* fault. Retrying them burns time and
+# rate-limit budget for a result that cannot change, so they fail immediately.
+NON_RETRYABLE_CLIENT_CODES = {
+    400: "CTGOV_BAD_QUERY",
+    401: "CTGOV_CLIENT_ERROR",
+    403: "CTGOV_CLIENT_ERROR",
+    404: "CTGOV_NOT_FOUND",
+    405: "CTGOV_CLIENT_ERROR",
+    410: "CTGOV_NOT_FOUND",
+    422: "CTGOV_BAD_QUERY",
+}
+
+
+@dataclass(slots=True)
+class SearchResult:
+    """One search arm: the studies fetched plus how that fetch went.
+
+    `truncated` is the honest answer to "is this every matching study?", and it
+    is the only thing the response metadata should be derived from — counting
+    rows and comparing them to a cap gets the answer wrong as soon as a request
+    has more than one search arm.
+    """
+
+    studies: list[dict] = field(default_factory=list)
+    truncated: bool = False
+    pages_fetched: int = 0
+    total_available: Optional[int] = None
+
+    def __len__(self) -> int:
+        return len(self.studies)
+
+    def __iter__(self):
+        return iter(self.studies)
 
 
 class CTGovError(RuntimeError):
@@ -98,15 +133,27 @@ class ClinicalTrialsClient:
                         request=response.request,
                         response=response,
                     )
-                if response.status_code == 400:
+                if response.status_code in NON_RETRYABLE_CLIENT_CODES:
                     raise CTGovError(
-                        f"ClinicalTrials.gov rejected the query: {response.text[:200]}",
-                        code="CTGOV_BAD_QUERY",
+                        f"ClinicalTrials.gov rejected the request with HTTP "
+                        f"{response.status_code}: {response.text[:200]}",
+                        code=NON_RETRYABLE_CLIENT_CODES[response.status_code],
                     )
                 response.raise_for_status()
-                payload = response.json()
+                try:
+                    payload = response.json()
+                except ValueError as exc:
+                    # A 200 with an unparseable body is a server-side defect, not
+                    # a transient blip; retrying it cannot help.
+                    raise CTGovError(
+                        f"ClinicalTrials.gov returned a body that is not JSON: {exc}",
+                        code="CTGOV_BAD_RESPONSE",
+                    ) from exc
                 if not isinstance(payload, dict):
-                    raise CTGovError("unexpected ClinicalTrials.gov response shape")
+                    raise CTGovError(
+                        "unexpected ClinicalTrials.gov response shape",
+                        code="CTGOV_BAD_RESPONSE",
+                    )
                 self._cache.set(cache_key, payload)
                 return payload
             except CTGovError:
@@ -131,7 +178,7 @@ class ClinicalTrialsClient:
         study_type: Optional[str] = None,
         fields: Optional[list[str]] = None,
         max_studies: Optional[int] = None,
-    ) -> list[dict]:
+    ) -> SearchResult:
         """Fetch studies across as many pages as the cap allows.
 
         Returns raw study dicts; normalization happens in `Trial.from_api`.
@@ -166,6 +213,9 @@ class ClinicalTrialsClient:
 
         studies: list[dict] = []
         page_token: Optional[str] = None
+        seen_tokens: set[str] = set()
+        repeated_token = False
+        total_available: Optional[int] = None
         pages = 0
         while len(studies) < cap:
             page_params = dict(params)
@@ -174,17 +224,40 @@ class ClinicalTrialsClient:
             payload = await self._get("/studies", page_params)
             batch = payload.get("studies") or []
             if not isinstance(batch, list):
-                raise CTGovError("ClinicalTrials.gov returned a malformed 'studies' field")
+                raise CTGovError(
+                    "ClinicalTrials.gov returned a malformed 'studies' field",
+                    code="CTGOV_BAD_RESPONSE",
+                )
+            if total_available is None and isinstance(payload.get("totalCount"), int):
+                total_available = payload["totalCount"]
             studies.extend(batch)
             pages += 1
-            page_token = payload.get("nextPageToken")
-            if not page_token or not batch:
-                break
 
-        truncated = len(studies) >= cap and bool(page_token)
+            next_token = payload.get("nextPageToken")
+            if not next_token or not isinstance(next_token, str) or not batch:
+                page_token = None
+                break
+            if next_token in seen_tokens:
+                # A registry that hands back a token it already gave us would
+                # otherwise spin until the cap. Stop and report truncation.
+                log_event("ctgov_repeated_page_token", pages=pages)
+                repeated_token = True
+                page_token = next_token
+                break
+            seen_tokens.add(next_token)
+            page_token = next_token
+
+        truncated = repeated_token or (bool(page_token) and len(studies) >= cap)
+        if total_available is not None and total_available > len(studies):
+            truncated = True
         log_event("ctgov_pagination_complete", pages=pages, studies=len(studies),
-                  truncated=truncated)
-        return studies[:cap]
+                  truncated=truncated, total_available=total_available)
+        return SearchResult(
+            studies=studies[:cap],
+            truncated=truncated,
+            pages_fetched=pages,
+            total_available=total_available,
+        )
 
     async def get_study(self, nct_id: str) -> dict:
         return await self._get(f"/studies/{nct_id}", {})

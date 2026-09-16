@@ -478,7 +478,7 @@
               "nct_id": "NCT03886584",
               "field": "protocolSection.contactsLocationsModule.locations[].country",
               "value": "France",
-              "excerpt": "Source Monitoring Déficit in Neuropsychiatric Population",
+              "excerpt": "Source Monitoring D\u00e9ficit in Neuropsychiatric Population",
               "url": "https://clinicaltrials.gov/study/NCT03886584"
             }
           ],
@@ -1072,7 +1072,7 @@
               "nct_id": "NCT05059158",
               "field": "protocolSection.contactsLocationsModule.locations[].country",
               "value": "Germany",
-              "excerpt": "Amyloid-β Clearance Mechanisms in Alzheimer's Disease",
+              "excerpt": "Amyloid-\u03b2 Clearance Mechanisms in Alzheimer's Disease",
               "url": "https://clinicaltrials.gov/study/NCT05059158"
             },
             {
@@ -1540,10 +1540,10 @@
         "studies_retrieved": 832,
         "studies_matched": 832,
         "truncated": false,
+        "studies_available": 832,
         "assumptions": [
-          "Focus is on Alzheimer's disease as the condition of interest",
-          "Only currently recruiting trials are relevant",
-          "Count of trials (not enrollment) is the best measure for 'most'"
+          "Search term 'Alzheimer's disease' is sufficient to capture relevant trials.",
+          "Most recruiting trials reflect current research activity by country."
         ],
         "notes": [
           "Showing the top 15 of country values by trial_count."
@@ -1551,11 +1551,11 @@
       }
     },
     "meta": {
-      "request_id": "968d92daa4a7",
+      "request_id": "4249beab0409",
       "query": "Which countries have the most recruiting trials for Alzheimer's disease?",
       "source": "clinicaltrials.gov",
       "source_api": "https://clinicaltrials.gov/api/v2",
-      "elapsed_ms": 2366,
+      "elapsed_ms": 2593,
       "plan": {
         "intent": "geographic",
         "search_terms": [
@@ -1569,8 +1569,10 @@
             "RECRUITING"
           ]
         },
-        "interpretation": "Compute the number of recruiting trials for Alzheimer's disease grouped by country to identify which countries have the most such trials.",
-        "planner_mode": "llm"
+        "interpretation": "Compute the count of recruiting clinical trials for Alzheimer's disease broken down by country.",
+        "planner_mode": "llm",
+        "intent_hint": null,
+        "intent_hint_applied": null
       }
     }
   }

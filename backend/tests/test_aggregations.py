@@ -89,7 +89,10 @@ def test_scatter_drops_trials_missing_either_value(trials):
 def test_histogram_bins_are_contiguous_and_complete(trials):
     buckets = agg.build_histogram(trials, NumericField.ENROLLMENT, bins=4)
     assert sum(b.value for b in buckets) == 4  # four trials report enrollment
-    assert all(b.nct_ids for b in buckets)
+    # Every bin in the range is emitted, empty ones included, so the rendered
+    # shape of the distribution is honest.
+    assert [b.sort_key for b in buckets][:4] == [0, 1, 2, 3]
+    assert all(len(b.nct_ids) == b.value for b in buckets)
 
 
 def test_histogram_of_identical_values_returns_single_bin(trials):

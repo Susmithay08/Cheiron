@@ -52,6 +52,12 @@ VALUE_FIELD = {
 }
 
 
+# `supporting_trial_count` is always the true total; the id list is capped so a
+# bar backed by 20,000 studies cannot bloat the response. The two are therefore
+# equal only up to this bound — documented in the README and the schema.
+MAX_SUPPORTING_IDS = 200
+
+
 def _number(value: float) -> float | int:
     """Counts are integers; keep medians/averages as floats."""
     return int(value) if float(value).is_integer() else round(value, 4)
@@ -64,7 +70,7 @@ def _citation_payload(
     return {
         "citations": [c.model_dump() for c in citations],
         "supporting_trial_count": len(all_ids),
-        "supporting_nct_ids": all_ids[:200],
+        "supporting_nct_ids": all_ids[:MAX_SUPPORTING_IDS],
     }
 
 
@@ -145,7 +151,7 @@ def build_histogram(
                 "trial_count": _number(bucket.value),
                 "citations": [c.model_dump() for c in citations],
                 "supporting_trial_count": len(all_ids),
-                "supporting_nct_ids": all_ids[:200],
+                "supporting_nct_ids": all_ids[:MAX_SUPPORTING_IDS],
             }
         )
 
@@ -241,7 +247,7 @@ def build_network(
                 "weight": edge.weight,
                 "citations": [c.model_dump() for c in citations],
                 "supporting_trial_count": len(all_ids),
-                "supporting_nct_ids": all_ids[:200],
+                "supporting_nct_ids": all_ids[:MAX_SUPPORTING_IDS],
             }
         )
 

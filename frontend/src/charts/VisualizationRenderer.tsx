@@ -38,8 +38,8 @@ export function VisualizationRenderer({ visualization, onSelect, selectedKey }: 
       return <NetworkGraph visualization={visualization} onSelect={onSelect} />;
     default:
       return (
-        <div className="flex h-full items-center justify-center text-slate-500">
-          No renderer is registered for “{visualization.type}”.
+        <div className="flex h-full items-center justify-center rounded-control border border-edge bg-card px-6 text-center text-sm text-muted">
+          No renderer is registered for “{String(visualization.type)}”.
         </div>
       );
   }

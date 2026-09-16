@@ -88,9 +88,10 @@ def test_unknown_filter_key_is_rejected():
 @pytest.mark.asyncio
 async def test_llm_plan_is_used_when_valid():
     planner = Planner(llm=FakeLLM(VALID))
-    plan, mode = await planner.plan("How are breast cancer trials distributed?", {})
-    assert mode == "llm"
-    assert plan.dimension.value == "phase"
+    planned = await planner.plan("How are breast cancer trials distributed?", {})
+    assert planned.mode == "llm"
+    assert planned.plan.dimension.value == "phase"
+    assert planned.intent_hint is None and planned.intent_hint_applied is None
 
 
 @pytest.mark.asyncio
@@ -98,19 +99,19 @@ async def test_invalid_llm_output_triggers_one_repair_round():
     bad = {**VALID, "intent": "nonsense"}
     llm = FakeLLM(bad, VALID)
     planner = Planner(llm=llm)
-    plan, mode = await planner.plan("anything", {})
+    planned = await planner.plan("anything", {})
     assert llm.calls == 2
-    assert mode == "llm"
-    assert plan.intent is Intent.DISTRIBUTION
+    assert planned.mode == "llm"
+    assert planned.plan.intent is Intent.DISTRIBUTION
 
 
 @pytest.mark.asyncio
 async def test_repeated_invalid_output_falls_back_to_heuristic():
     bad = {**VALID, "intent": "nonsense"}
     planner = Planner(llm=FakeLLM(bad, bad))
-    plan, mode = await planner.plan("How are breast cancer trials distributed by phase?", {})
-    assert mode == "heuristic"
-    assert plan.intent is Intent.DISTRIBUTION
+    planned = await planner.plan("How are breast cancer trials distributed by phase?", {})
+    assert planned.mode == "heuristic"
+    assert planned.plan.intent is Intent.DISTRIBUTION
 
 
 @pytest.mark.asyncio
@@ -118,16 +119,17 @@ async def test_llm_failure_falls_back_to_heuristic():
     from app.agent.llm import LLMError
 
     planner = Planner(llm=FakeLLM(raises=LLMError("boom")))
-    plan, mode = await planner.plan("trials for melanoma by phase", {})
-    assert mode == "heuristic"
+    planned = await planner.plan("trials for melanoma by phase", {})
+    assert planned.mode == "heuristic"
 
 
 @pytest.mark.asyncio
 async def test_structured_filters_override_llm_inference():
     planner = Planner(llm=FakeLLM({**VALID, "filters": {"start_year": 1999}}))
-    plan, _ = await planner.plan(
+    planned = await planner.plan(
         "trials by phase", {"start_year": 2015, "status": "RECRUITING", "drug_name": "Keytruda"}
     )
+    plan = planned.plan
     assert plan.filters.start_year == 2015
     assert [s.value for s in plan.filters.statuses] == ["RECRUITING"]
     assert "Keytruda" in plan.search_terms[0]

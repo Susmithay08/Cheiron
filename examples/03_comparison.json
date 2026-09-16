@@ -96,7 +96,7 @@
               "nct_id": "NCT06497049",
               "field": "protocolSection.designModule.phases",
               "value": "Phase 1",
-              "excerpt": "Open Randomized Study of Comparative Pharmacokinetics and Biosimilarity of GP40221 (GEROPHARM LLC, Russia) and Ozempic®.",
+              "excerpt": "Open Randomized Study of Comparative Pharmacokinetics and Biosimilarity of GP40221 (GEROPHARM LLC, Russia) and Ozempic\u00ae.",
               "url": "https://clinicaltrials.gov/study/NCT06497049"
             }
           ],
@@ -345,7 +345,7 @@
               "nct_id": "NCT04469855",
               "field": "protocolSection.designModule.phases",
               "value": "Not Applicable",
-              "excerpt": "Post-Marketing Surveillance (Special Use-results Surveillance) on Long-term Use With Ozempic®",
+              "excerpt": "Post-Marketing Surveillance (Special Use-results Surveillance) on Long-term Use With Ozempic\u00ae",
               "url": "https://clinicaltrials.gov/study/NCT04469855"
             },
             {
@@ -564,14 +564,14 @@
               "nct_id": "NCT06633783",
               "field": "protocolSection.designModule.phases",
               "value": "Phase 3",
-              "excerpt": "A Phase III Study Comparing the Weight Loss Effects of Semaglutide Injection and Wegovy®",
+              "excerpt": "A Phase III Study Comparing the Weight Loss Effects of Semaglutide Injection and Wegovy\u00ae",
               "url": "https://clinicaltrials.gov/study/NCT06633783"
             },
             {
               "nct_id": "NCT06738979",
               "field": "protocolSection.designModule.phases",
               "value": "Phase 3",
-              "excerpt": "A Clinical Study Comparing Semaglutide Injection and Wegovy® for Weight Management in Obese Subjects",
+              "excerpt": "A Clinical Study Comparing Semaglutide Injection and Wegovy\u00ae for Weight Management in Obese Subjects",
               "url": "https://clinicaltrials.gov/study/NCT06738979"
             }
           ],
@@ -693,7 +693,7 @@
               "nct_id": "NCT05897398",
               "field": "protocolSection.designModule.phases",
               "value": "Not Applicable",
-              "excerpt": "SEMASEARCH, Retrospective/Prospective Cohort Nested at ATUc/AP2 WEGOVY®",
+              "excerpt": "SEMASEARCH, Retrospective/Prospective Cohort Nested at ATUc/AP2 WEGOVY\u00ae",
               "url": "https://clinicaltrials.gov/study/NCT05897398"
             },
             {
@@ -766,20 +766,19 @@
         "studies_retrieved": 220,
         "studies_matched": 220,
         "truncated": false,
-        "assumptions": [
-          "Phases include standard clinical trial phases from EARLY_PHASE1 to PHASE4"
-        ],
+        "studies_available": 220,
+        "assumptions": [],
         "notes": [
           "Studies matched per series: Ozempic=114, Wegovy=106"
         ]
       }
     },
     "meta": {
-      "request_id": "4cb86d6596ac",
+      "request_id": "519509588cc5",
       "query": "Compare trial counts by phase for Ozempic vs Wegovy",
       "source": "clinicaltrials.gov",
       "source_api": "https://clinicaltrials.gov/api/v2",
-      "elapsed_ms": 2090,
+      "elapsed_ms": 1922,
       "plan": {
         "intent": "comparison",
         "search_terms": [
@@ -790,8 +789,10 @@
         "metric": "trial_count",
         "relationship": null,
         "filters": {},
-        "interpretation": "Compare the number of clinical trials by phase for the drugs Ozempic and Wegovy.",
-        "planner_mode": "llm"
+        "interpretation": "Compare the number of clinical trials for Ozempic versus Wegovy, broken down by trial phase.",
+        "planner_mode": "llm",
+        "intent_hint": null,
+        "intent_hint_applied": null
       }
     }
   }
